@@ -14,6 +14,22 @@
   --color-gold-dim: #b8780a;
 }
 
+/*
+  Light theme — own brand: warm ivory + burnt gold, like a fine-dining menu.
+  Dark stays the default signature look. Toggled via data-theme on <html>.
+*/
+:root[data-theme='light'] {
+  --color-bg: #f6f1e7;
+  --color-bg-elevated: #eee7d8;
+  --color-bg-card: #fdfaf3;
+  --color-border: #ddd2bd;
+  --color-muted: #6f6555;
+  --color-fg: #201a12;
+  --color-gold: #a66c05;
+  --color-gold-soft: #8a5a04;
+  --color-gold-dim: #7a5203;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -44,12 +60,22 @@ body {
   color: transparent;
 }
 
+:root[data-theme='light'] .text-gold-gradient {
+  background: linear-gradient(135deg, #b8780a 0%, #a66c05 45%, #7a5203 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
 .bg-gold-gradient {
   background: linear-gradient(135deg, #f5c15a 0%, #e8a317 50%, #c4840a 100%);
 }
 
 .card-premium {
-  background: linear-gradient(180deg, #171717 0%, #111111 100%);
+  background: linear-gradient(
+    180deg,
+    var(--color-bg-card) 0%,
+    var(--color-bg-elevated) 100%
+  );
   border: 1px solid var(--color-border);
 }
 
@@ -66,7 +92,7 @@ body {
   width: 100%;
   border-radius: 0.75rem;
   border: 1px solid var(--color-border);
-  background: rgba(10, 10, 10, 0.6);
+  background: color-mix(in srgb, var(--color-bg) 65%, transparent);
   padding: 0.7rem 0.9rem;
   font-family: var(--font-sans);
   font-size: 0.875rem;
@@ -88,8 +114,28 @@ body {
 
 /* Native dropdown list is drawn by the OS, so set both sides explicitly. */
 .field option {
-  background: #141414;
+  background: var(--color-bg-card);
   color: var(--color-fg);
+}
+
+/*
+  Logo artwork is black-on-white JPEG. Blend modes drop the plate:
+  dark surface — invert to white art, screen kills the black plate;
+  light surface — original art, multiply kills the white plate.
+*/
+.logo-on-dark {
+  filter: invert(1);
+  mix-blend-mode: screen;
+}
+
+.logo-adaptive {
+  filter: invert(1);
+  mix-blend-mode: screen;
+}
+
+:root[data-theme='light'] .logo-adaptive {
+  filter: none;
+  mix-blend-mode: multiply;
 }
 
 .img-cover {
@@ -98,13 +144,34 @@ body {
   object-fit: cover;
 }
 
-/* Hero cinematic — full-bleed personal brand */
+/* Hero name gold — hero plate is always dark, so never the light-theme gold */
+.hero-name-gold {
+  background: linear-gradient(135deg, #f5c15a 0%, #e8a317 45%, #c4840a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Left veil — text readable, site + portrait still visible */
 .hero-veil-left {
   background: linear-gradient(
     90deg,
     #0a0a0a 0%,
-    rgba(10, 10, 10, 0.88) 35%,
-    rgba(10, 10, 10, 0.45) 60%,
+    rgba(10, 10, 10, 0.82) 26%,
+    rgba(10, 10, 10, 0.4) 50%,
+    rgba(10, 10, 10, 0.12) 72%,
     transparent 100%
   );
+}
+
+@media (min-width: 768px) {
+  .hero-veil-left {
+    background: linear-gradient(
+      90deg,
+      #0a0a0a 0%,
+      rgba(10, 10, 10, 0.75) 30%,
+      rgba(10, 10, 10, 0.3) 55%,
+      transparent 80%
+    );
+  }
 }

@@ -2,9 +2,13 @@
 <html lang="ro">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/jpeg" href="/cheftiberiucsiszer/images/hero.jpg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0a0a0a" />
+    <script>
+      // Set theme before first paint to avoid a flash of the wrong palette.
+      document.documentElement.dataset.theme = localStorage.getItem('theme') || 'dark'
+    </script>
     <title>Tiberiu Csiszer — Chef & Consultant Culinar</title>
     <meta
       name="description"
@@ -15,7 +19,7 @@
       property="og:description"
       content="Executive Chef · consultanță bucătărie · evenimente · training. Experiență DE · BE · RO."
     />
-    <meta property="og:image" content="/cheftiberiucsiszer/images/about.jpg" />
+    <meta property="og:image" content="https://chefcsiszertiberiu.github.io/images/about.jpg" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ro_RO" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

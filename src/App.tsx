@@ -37,39 +37,61 @@ const stats = [
   { value: '5000', label: 'Persoane · eveniment BE' },
 ]
 
-/** Ofertă din materialul oficial (consultanță gastronomică completă) */
+/**
+ * Ofertă oficială din materialul de prezentare:
+ * „Ofer consultanță gastronomică completă” — exact cele 7 puncte.
+ */
 const services = [
   {
     title: 'Deschiderea unui restaurant nou',
-    text: 'Concept, flux de bucătărie, echipamente, standarde de producție și deschidere gata de serviciu.',
+    text: 'Consultanță completă pentru opening: concept, flux bucătărie, echipamente și standarde de producție.',
   },
   {
     title: 'Îmbunătățirea și optimizarea unui restaurant existent',
-    text: 'Refresh de meniu, organizare brigadă, ritm de serviciu și eficiență pe fluxul de lucru.',
+    text: 'Optimizare meniu, organizare, eficiență pe flux și rezultate mai bune pe operațiunea curentă.',
   },
   {
     title: 'Food cost management & control',
-    text: 'Control costuri, rețete standardizate, inventar și profitabilitate pe farfurie.',
+    text: 'Control food cost, rețete standardizate, inventar și profitabilitate pe farfurie.',
   },
   {
     title: 'Tehnici corecte de lucru în bucătărie',
-    text: 'Metode profesionale, standarde de producție și transfer de meserie pe posturi.',
+    text: 'Tehnici profesionale de lucru, standarde pe posturi și transfer de meserie în brigadă.',
   },
   {
     title: 'Instruirea și motivarea personalului',
-    text: 'Training de echipă, leadership de brigadă și cultură de bucătărie care ține.',
+    text: 'Instruire echipă, motivare, leadership de brigadă și ritm de serviciu.',
   },
   {
     title: 'Food design & plating de nivel înalt',
-    text: 'Prezentare pe farfurie, amprentă de chef și design culinar pentru meniu de top.',
+    text: 'Food design și plating de nivel înalt — prezentare, amprentă de chef, farfurie de top.',
   },
   {
     title: 'Consultanță igienă & siguranța alimentației publice',
-    text: 'Practici corecte de igienă, siguranță alimentară și conformitate în unitatea de alimentație publică.',
+    text: 'Consultanță pe igienă și siguranța alimentației publice în unitatea de alimentație.',
   },
 ]
 
+/** Galerie mixtă: preparate + chef / evenimente */
 const gallery = [
+  // — Mâncare —
+  { src: img('food-creveti.jpg'), alt: 'Fine dining — creveți și mousse' },
+  { src: img('food-canape.jpg'), alt: 'Canape premium pentru eveniment' },
+  { src: img('food-platter-mezeluri.jpg'), alt: 'Platter tradițional mezeluri și brânzeturi' },
+  { src: img('food-desert-pahar.jpg'), alt: 'Desert în pahar cu fructe' },
+  { src: img('food-salata-moderna.jpg'), alt: 'Salată modernă cu brânză și măsline' },
+  { src: img('food-burger.jpg'), alt: 'Burger gourmet cu ou și cartofi' },
+  { src: img('food-ceaun.jpg'), alt: 'Preparat la ceaun — eveniment outdoor' },
+  { src: img('food-tocanita.jpg'), alt: 'Tocăniță la ceaun cu pătrunjel' },
+  { src: img('food-canape-slate.jpg'), alt: 'Canape pe ardezie — wrap și prosciutto' },
+  { src: img('food-ardei-umpluti.jpg'), alt: 'Ardei umpluți pe farfurie ceramică' },
+  { src: img('food-cheesecake.jpg'), alt: 'Cheesecake plating profesional' },
+  { src: img('food-branzeturi.jpg'), alt: 'Platter brânzeturi premium' },
+  { src: img('food-tarta-mere.jpg'), alt: 'Tartă cu mere și migdale' },
+  { src: img('food-rulada-prune.jpg'), alt: 'Ruladă cu prune uscate — producție' },
+  { src: img('food-sandwich.jpg'), alt: 'Sandwich gourmet UniChef' },
+  { src: img('food-burger-premium.jpg'), alt: 'Burger premium cu cartofi wedges' },
+  // — Chef / evenimente (deja pe site) —
   { src: img('mussels.jpg'), alt: 'Show cooking midii la eveniment' },
   { src: img('roast-slice.jpg'), alt: 'Tranșare preparat premium' },
   { src: img('spit-roast.jpg'), alt: 'Miel la proțap' },
@@ -80,8 +102,6 @@ const gallery = [
   { src: img('jury-mussels.jpg'), alt: 'Jurizare Best Chef IPA' },
   { src: img('unichef-booth.jpg'), alt: 'UniChef · Unilever Food Solutions' },
   { src: img('taste-forward.jpg'), alt: 'Taste Forward 2025 București' },
-  { src: img('media-interview.jpg'), alt: 'Interviu media' },
-  { src: img('bilancia.jpg'), alt: 'Bilancia · parteneriate culinare' },
 ]
 
 const mediaLinks = [
@@ -107,6 +127,52 @@ const mediaLinks = [
   },
 ]
 
+type Theme = 'dark' | 'light'
+
+function ThemeToggle({ onDark }: { onDark: boolean }) {
+  const [theme, setTheme] = useState<Theme>(
+    () => (document.documentElement.dataset.theme as Theme) || 'dark',
+  )
+
+  // Two instances render (desktop + mobile nav), so the <html> attribute is
+  // the single source of truth — each click reads it fresh.
+  function toggle() {
+    const current = (document.documentElement.dataset.theme as Theme) || 'dark'
+    const next: Theme = current === 'dark' ? 'light' : 'dark'
+    document.documentElement.dataset.theme = next
+    localStorage.setItem('theme', next)
+    setTheme(next)
+  }
+
+  const next: Theme = theme === 'dark' ? 'light' : 'dark'
+
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={next === 'light' ? 'Comută pe tema deschisă' : 'Comută pe tema închisă'}
+      className={`flex h-9 w-9 items-center justify-center rounded-full border transition ${
+        onDark
+          ? 'border-white/25 text-white/80 hover:border-gold hover:text-gold'
+          : 'border-border text-muted hover:border-gold hover:text-gold'
+      }`}
+    >
+      {theme === 'dark' ? (
+        /* sun */
+        <svg viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current" strokeWidth="2" aria-hidden>
+          <circle cx="12" cy="12" r="4" />
+          <path strokeLinecap="round" d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+        </svg>
+      ) : (
+        /* moon */
+        <svg viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current" strokeWidth="2" aria-hidden>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+        </svg>
+      )}
+    </button>
+  )
+}
+
 function Nav() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -131,13 +197,16 @@ function Nav() {
       }`}
     >
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5">
-        <a
-          href="#top"
-          className={`font-display text-xl tracking-wide transition ${
-            scrolled ? 'text-fg' : 'text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]'
-          }`}
-        >
-          TIBERIU <span className="text-gold">CSISZER</span>
+        <a href="#top" className="flex items-center" aria-label="Chef Tiberiu Csiszer — start">
+          {/* Over the dark hero the logo is always inverted; once the nav gets
+              its own background it follows the active theme. */}
+          <img
+            src={img('brand/logo-mark.jpg')}
+            alt="Chef Tiberiu Csiszer"
+            className={`h-14 w-auto select-none md:h-16 ${
+              scrolled ? 'logo-adaptive' : 'logo-on-dark'
+            }`}
+          />
         </a>
 
         <nav className="hidden items-center gap-6 md:flex">
@@ -158,11 +227,14 @@ function Nav() {
           >
             WhatsApp
           </a>
+          <ThemeToggle onDark={!scrolled} />
         </nav>
 
+        <div className="flex items-center gap-3 md:hidden">
+          <ThemeToggle onDark={!scrolled && !open} />
         <button
           type="button"
-          className={scrolled ? 'text-fg md:hidden' : 'text-white md:hidden'}
+          className={scrolled || open ? 'text-fg' : 'text-white'}
           aria-label="Meniu"
           onClick={() => setOpen((v) => !v)}
         >
@@ -170,6 +242,7 @@ function Nav() {
           <span className="mt-1.5 block h-0.5 w-6 bg-current" />
           <span className="mt-1.5 block h-0.5 w-6 bg-current" />
         </button>
+        </div>
       </div>
 
       {open && (
@@ -202,45 +275,108 @@ function Nav() {
 }
 
 function Hero() {
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  useEffect(() => {
+    let raf = 0
+    const onScroll = () => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(() => {
+        // 0 at top → 1 after ~0.7 viewport (clear, visible zoom)
+        const p = Math.min(1, Math.max(0, window.scrollY / (window.innerHeight * 0.7)))
+        setScrollProgress(p)
+      })
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [])
+
+  // Visible Ken-Burns: scale 1 → 1.18
+  const imgScale = 1 + scrollProgress * 0.18
+  const imgY = scrollProgress * 36
+  const contentOpacity = 1 - scrollProgress * 0.4
+  const contentY = scrollProgress * 32
+
   return (
     <section
       id="top"
-      className="relative flex min-h-svh items-center overflow-hidden pb-16 pt-24 md:pb-20"
+      className="relative flex min-h-svh items-center overflow-hidden bg-[#0a0a0a] pb-16 pt-24 md:pb-20"
     >
-      {/* Full-bleed presentation photo — onetiu-style */}
-      <div className="absolute inset-0">
-        <img
-          src={img('about.jpg')}
-          alt=""
-          width={1920}
-          height={1080}
-          fetchPriority="high"
-          decoding="async"
-          className="h-full w-full scale-105 object-cover object-[68%_center] md:object-[72%_center] lg:object-[75%_center]"
-        />
-        {/* Left text veil */}
-        <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/85 to-transparent md:from-bg/95 md:via-bg/70 md:to-transparent lg:via-bg/55" />
-        {/* Bottom fade into site */}
-        <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-bg/40" />
-        {/* Soft vignette right */}
-        <div className="absolute inset-0 bg-gradient-to-l from-bg/50 via-transparent to-transparent md:from-bg/30" />
-        {/* Gold ambient glow */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_30%_60%,rgba(232,163,23,0.12),transparent_55%)]" />
+      {/*
+        Hero keeps its dark cinematic plate in both themes — the cutout JPEG
+        sits on black. The bottom fade below uses the theme bg var, so the
+        section melts into whichever palette is active.
+      */}
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_78%_50%,rgba(232,163,23,0.18),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_12%_28%,rgba(232,163,23,0.09),transparent_42%)]" />
+        <div className="hero-veil-left absolute inset-0" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-5">
-        <div className="max-w-xl lg:max-w-2xl">
-          <p className="mb-5 inline-flex items-center gap-2 text-xs font-medium tracking-[0.28em] text-gold uppercase">
-            <span className="inline-block h-px w-8 bg-gold" />
-            Executive Chef · Consultant Culinar
-          </p>
+      {/*
+        Tibi cutout on the right — same black as site bg so only he reads.
+        Mobile: half peeks from right. Desktop: full figure.
+        Scroll: clear scale-up.
+      */}
+      <div
+        className="pointer-events-none absolute inset-y-0 right-0 z-[3] w-[58%] overflow-hidden max-md:w-[52%] md:w-[50%] lg:w-[48%]"
+        aria-hidden
+      >
+        <div
+          className="absolute inset-0 will-change-transform"
+          style={{
+            transform: `translate3d(0, ${imgY}px, 0) scale(${imgScale})`,
+            transformOrigin: '75% 85%',
+          }}
+        >
+          <img
+            src={img('tibi-cutout.jpg')}
+            alt="Chef Tiberiu Csiszer"
+            width={900}
+            height={1200}
+            fetchPriority="high"
+            decoding="async"
+            className={[
+              'absolute bottom-0 h-[min(96svh,980px)] w-auto max-w-none select-none object-contain object-bottom',
+              /* phone: only ~half of figure in the right zone */
+              'right-0 max-md:right-[-38%] max-md:h-[82svh]',
+              'md:right-0 md:h-[min(94svh,960px)]',
+              'lg:right-4',
+            ].join(' ')}
+          />
+        </div>
+      </div>
 
-          <h1 className="font-display text-[clamp(2.75rem,8vw,5.5rem)] leading-[0.95] tracking-wide text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]">
-            TIBERIU
-            <br />
-            <span className="text-gold-gradient">CSISZER</span>
-          </h1>
+      {/* Fades over the cutout: figure melts into the page bottom (theme bg) */}
+      <div className="pointer-events-none absolute inset-0 z-[4]" aria-hidden>
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg via-bg/55 to-transparent md:h-52" />
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/60 to-transparent" />
+      </div>
 
+      <div
+        className="relative z-[2] mx-auto w-full max-w-6xl px-5 will-change-transform"
+        style={{
+          opacity: contentOpacity,
+          transform: `translate3d(0, ${contentY}px, 0)`,
+        }}
+      >
+        <p className="mb-5 inline-flex items-center gap-2 text-xs font-medium tracking-[0.28em] text-gold uppercase">
+          <span className="inline-block h-px w-8 bg-gold" />
+          Executive Chef · Consultant Culinar
+        </p>
+
+        {/* Full-width name — the tail slides behind the portrait (onetiu-style) */}
+        <h1 className="font-display text-[clamp(3rem,10.5vw,8rem)] leading-[0.92] tracking-wide whitespace-nowrap text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.55)]">
+          TIBERIU
+          <br />
+          <span className="hero-name-gold">CSISZER</span>
+        </h1>
+
+        <div className="max-w-[min(100%,20rem)] sm:max-w-md md:max-w-xl lg:max-w-2xl">
           <p className="mt-6 max-w-lg text-base leading-relaxed text-white/80 md:text-lg">
             Experiență internațională. Openings de bucătărie, meniuri cu amprentă, training de
             brigadă și show cooking — Mediaș · Germania · Belgia.
@@ -282,10 +418,10 @@ function Hero() {
         </div>
       </div>
 
-      {/* Scroll cue */}
       <a
         href="#despre"
         className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] tracking-[0.3em] text-white/45 uppercase transition hover:text-gold"
+        style={{ opacity: Math.max(0, 1 - scrollProgress * 2) }}
         aria-label="Scroll"
       >
         <span>Scroll</span>
@@ -498,8 +634,11 @@ function Gallery() {
   return (
     <section id="galerie" className="bg-bg-elevated py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-5">
-        <p className="text-xs tracking-[0.25em] text-gold uppercase">Portofoliu vizual</p>
+        <p className="text-xs tracking-[0.25em] text-gold uppercase">Preparate · evenimente · chef</p>
         <h2 className="font-display mt-3 text-4xl tracking-wide md:text-5xl">GALERIE</h2>
+        <p className="mt-4 max-w-2xl text-muted leading-relaxed">
+          Mâncare semnată, plating, evenimente și momente din carieră — nu doar portrete.
+        </p>
         <div className="section-line mt-4 h-px w-24" />
         <div className="mt-12 columns-1 gap-4 sm:columns-2 lg:columns-3">
           {gallery.map((g) => (
@@ -507,7 +646,12 @@ function Gallery() {
               key={g.src}
               className="mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-border"
             >
-              <img src={g.src} alt={g.alt} className="w-full object-cover transition duration-500 hover:scale-[1.03]" loading="lazy" />
+              <img
+                src={g.src}
+                alt={g.alt}
+                className="w-full object-cover transition duration-500 hover:scale-[1.03]"
+                loading="lazy"
+              />
             </figure>
           ))}
         </div>
@@ -717,13 +861,6 @@ function ContactForm() {
           </a>
           .
         </p>
-        <button
-          type="button"
-          onClick={() => setState('idle')}
-          className="mt-8 self-start rounded-full border border-border px-6 py-3 text-sm text-fg transition hover:border-gold hover:text-gold"
-        >
-          Trimite alt mesaj
-        </button>
       </div>
     )
   }
@@ -847,9 +984,11 @@ function Footer() {
     <footer className="border-t border-border py-10">
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-5 md:flex-row md:items-center">
         <div>
-          <p className="font-display text-xl tracking-wide">
-            TIBERIU <span className="text-gold">CSISZER</span>
-          </p>
+          <img
+            src={img('brand/logo-mark.jpg')}
+            alt="Chef Tiberiu Csiszer"
+            className="logo-adaptive h-16 w-auto select-none"
+          />
           <p className="mt-2 max-w-md text-sm text-muted">
             Executive Chef · consultant openings & kitchen development · Food & Beverage · team
             leadership.
