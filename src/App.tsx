@@ -725,8 +725,8 @@ function Experience() {
     {
       place: 'Sibiu',
       country: 'România',
-      role: 'Curs & prima bucătărie',
-      text: 'În 2000 am făcut cursul de bucătar la nea Liviu, apoi am preluat bucătăria unui restaurant din centru.',
+      role: 'A doua bucătărie',
+      text: 'În 2000 am mers la nea Liviu, apoi am preluat bucătăria unui restaurant din centru.',
     },
     {
       place: 'Düsseldorf',
