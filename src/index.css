@@ -120,6 +120,114 @@ body {
   color: var(--color-fg);
 }
 
+/*
+  Buttons: grow on hover, dip on press. Kept at 6% — a 40% jump would
+  overlap neighbouring controls and shove the grid around.
+*/
+.btn-pop {
+  transition:
+    transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.btn-pop:hover {
+  transform: scale(1.06);
+}
+
+.btn-pop:active {
+  transform: scale(0.97);
+  transition-duration: 0.08s;
+}
+
+/*
+  Service cards: lift fast on hover, drift back slowly over ~2.5s after the
+  pointer leaves. Asymmetric durations do the work — the resting rule owns
+  the slow one, the hover rule overrides it with a quick one.
+*/
+.card-drift {
+  transition:
+    transform 2.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 2.4s ease,
+    box-shadow 2.4s ease;
+}
+
+.card-drift:hover {
+  transform: translateY(-10px) rotate(-0.5deg);
+  border-color: color-mix(in srgb, var(--color-gold) 55%, transparent);
+  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.75);
+  transition-duration: 0.28s;
+}
+
+/* Process steps: latch lit once touched, until the page reloads. */
+.step-card {
+  transition:
+    border-color 0.45s ease,
+    box-shadow 0.45s ease,
+    transform 0.45s ease;
+}
+
+/*
+  Hero-to-page transition. The hero plate is fixed dark while the page bg
+  follows the theme, so a short two-stop fade shows a hard band in light
+  mode. A long eased ramp hides the seam in both themes.
+*/
+.hero-bottom-fade {
+  background: linear-gradient(
+    to top,
+    var(--color-bg) 0%,
+    color-mix(in srgb, var(--color-bg) 92%, transparent) 14%,
+    color-mix(in srgb, var(--color-bg) 78%, transparent) 28%,
+    color-mix(in srgb, var(--color-bg) 58%, transparent) 44%,
+    color-mix(in srgb, var(--color-bg) 36%, transparent) 60%,
+    color-mix(in srgb, var(--color-bg) 18%, transparent) 76%,
+    color-mix(in srgb, var(--color-bg) 6%, transparent) 90%,
+    transparent 100%
+  );
+}
+
+/* Scroll cue: chevron drifts down and dims, then repeats. */
+@keyframes scroll-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateY(7px);
+    opacity: 1;
+  }
+}
+
+.scroll-cue {
+  animation: scroll-bounce 1.9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue {
+    animation: none;
+  }
+}
+
+/* Timeline rail for the career section — no boxes, just line and marks. */
+.rail-dot {
+  box-shadow: 0 0 0 4px var(--color-bg-elevated);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-pop,
+  .card-drift,
+  .step-card {
+    transition-duration: 0.01ms;
+  }
+
+  .btn-pop:hover,
+  .card-drift:hover {
+    transform: none;
+  }
+}
+
 /* Transparent-PNG logo pair: show the one that suits the active theme. */
 .logo-for-light {
   display: none;
@@ -150,27 +258,29 @@ body {
   container edge would still cut a hard vertical line.
 */
 .hero-frame {
-  -webkit-mask-image:
-    linear-gradient(
-      180deg,
-      #000 0%,
-      #000 74%,
-      rgba(0, 0, 0, 0.75) 86%,
-      rgba(0, 0, 0, 0.3) 95%,
-      transparent 100%
-    ),
-    linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.6) 7%, #000 16%);
+  --fade-y: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 58%,
+    rgba(0, 0, 0, 0.88) 72%,
+    rgba(0, 0, 0, 0.6) 83%,
+    rgba(0, 0, 0, 0.28) 92%,
+    rgba(0, 0, 0, 0.08) 97%,
+    transparent 100%
+  );
+  --fade-x: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.06) 8%,
+    rgba(0, 0, 0, 0.2) 16%,
+    rgba(0, 0, 0, 0.45) 25%,
+    rgba(0, 0, 0, 0.72) 34%,
+    rgba(0, 0, 0, 0.92) 42%,
+    #000 50%
+  );
+  -webkit-mask-image: var(--fade-y), var(--fade-x);
   -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(
-      180deg,
-      #000 0%,
-      #000 74%,
-      rgba(0, 0, 0, 0.75) 86%,
-      rgba(0, 0, 0, 0.3) 95%,
-      transparent 100%
-    ),
-    linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.6) 7%, #000 16%);
+  mask-image: var(--fade-y), var(--fade-x);
   mask-composite: intersect;
 }
 
@@ -181,28 +291,24 @@ body {
 */
 @media (max-width: 1023px) {
   .hero-frame {
-    -webkit-mask-image:
-      linear-gradient(
-        180deg,
-        #000 0%,
-        #000 74%,
-        rgba(0, 0, 0, 0.75) 86%,
-        rgba(0, 0, 0, 0.3) 95%,
-        transparent 100%
-      ),
-      linear-gradient(90deg, transparent 2%, rgba(0, 0, 0, 0.5) 12%, #000 26%);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(
-        180deg,
-        #000 0%,
-        #000 74%,
-        rgba(0, 0, 0, 0.75) 86%,
-        rgba(0, 0, 0, 0.3) 95%,
-        transparent 100%
-      ),
-      linear-gradient(90deg, transparent 2%, rgba(0, 0, 0, 0.5) 12%, #000 26%);
-    mask-composite: intersect;
+    --fade-y: linear-gradient(
+      180deg,
+      #000 0%,
+      #000 60%,
+      rgba(0, 0, 0, 0.85) 74%,
+      rgba(0, 0, 0, 0.5) 85%,
+      rgba(0, 0, 0, 0.2) 93%,
+      transparent 100%
+    );
+    --fade-x: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.08) 10%,
+      rgba(0, 0, 0, 0.28) 20%,
+      rgba(0, 0, 0, 0.55) 30%,
+      rgba(0, 0, 0, 0.82) 40%,
+      #000 50%
+    );
   }
 }
 

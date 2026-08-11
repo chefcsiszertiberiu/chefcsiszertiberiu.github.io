@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 
 /** Works on localhost + GitHub Pages base path */
 const img = (file: string) =>
@@ -51,17 +51,18 @@ const process = [
 ]
 
 const competitions = [
-  { title: 'Best Chef IPA — locul 2', detail: 'Ediția a II-a, alături de Chef Erni Schmidt' },
-  { title: 'Vándorcsizma — membru în juriu', detail: 'Concurs de gulaș, festival de dansuri populare' },
-  { title: 'UniChef Cup', detail: 'Unilever Food Solutions — jurizare și demonstrații' },
-  { title: 'Taste Forward 2025', detail: 'București — prezență profesională' },
+  { title: 'Best Chef IPA — locul 2', detail: 'Am concurat în ediția a II-a, alături de Chef Erni Schmidt' },
+  { title: 'Vándorcsizma — juriu', detail: 'Am jurizat concursul de gulaș de la festivalul de dansuri populare' },
+  { title: 'UniChef Cup', detail: 'Am jurizat și am ținut demonstrații pentru Unilever Food Solutions' },
+  { title: 'Taste Forward 2025', detail: 'Am fost prezent la ediția din București' },
 ]
 
 const stats = [
-  { value: '25+', label: 'Ani în bucătărie' },
-  { value: '3', label: 'Țări · RO · DE · BE' },
+  // 2000 (primul curs, Sibiu) → anul curent. Restaurante și bucătari: cifrele lui Tibi.
+  { value: '26', label: 'Ani în bucătărie' },
+  { value: '25', label: 'Restaurante consiliate' },
+  { value: '100+', label: 'Bucătari instruiți' },
   { value: '#2', label: 'Best Chef IPA' },
-  { value: '5000', label: 'Persoane · eveniment BE' },
 ]
 
 /**
@@ -83,11 +84,11 @@ const services = [
   },
   {
     title: 'Tehnici corecte de lucru în bucătărie',
-    text: 'Tehnici profesionale de lucru, standarde pe posturi și transfer de meserie în brigadă.',
+    text: 'Cum se lucrează: tăiere, temperaturi, mise en place, fișe tehnice și standarde scrise pe fiecare post.',
   },
   {
     title: 'Instruirea și motivarea personalului',
-    text: 'Instruire echipă, motivare, leadership de brigadă și ritm de serviciu.',
+    text: 'Am instruit peste 100 de bucătari. Lucrează azi pe vase de croazieră, în Germania, în Franța și cei mai mulți în România.',
   },
   {
     title: 'Food design & plating de nivel înalt',
@@ -131,6 +132,19 @@ const gallery = [
   { src: img('taste-forward.jpg'), alt: 'Taste Forward 2025 București' },
 ]
 
+const press = [
+  {
+    name: 'Monitorul de Mediaș',
+    href: 'https://www.monitoruldemedias.ro/2014/02/medieseanul-tiberiu-csiszer-seful-chef.html',
+  },
+  {
+    name: 'Strada Cetății',
+    href: 'https://stradacetatii.ro/2022/03/deliciu-de-post-a-la-chef-tiberiu-csiszer/',
+  },
+  { name: 'Complimente Bucătarului', href: 'https://complimentebucatarului.ro/tiberiu-csiszer/' },
+  { name: 'UniChef / Unilever', href: 'https://www.youtube.com/watch?v=f58jVwtkzNo' },
+]
+
 const mediaLinks = [
   {
     title: 'Medieșeanul Tiberiu Csiszer, șeful „chef“-ilor',
@@ -146,11 +160,6 @@ const mediaLinks = [
     title: 'Creativitate și pasiune înnăscută pentru gastronomie',
     source: 'Complimente Bucătarului',
     href: 'https://complimentebucatarului.ro/tiberiu-csiszer/',
-  },
-  {
-    title: 'Somon cu măr și spanac — rețetă video',
-    source: 'YouTube',
-    href: 'https://www.youtube.com/watch?v=f58jVwtkzNo',
   },
 ]
 
@@ -332,7 +341,7 @@ function Nav() {
             href="https://wa.me/40741591252"
             target="_blank"
             rel="noreferrer"
-            className="bg-gold-gradient rounded-full px-4 py-2 text-xs font-semibold tracking-wide text-black uppercase"
+            className="btn-pop bg-gold-gradient rounded-full px-4 py-2 text-xs font-semibold tracking-wide text-black uppercase"
           >
             WhatsApp
           </a>
@@ -464,7 +473,7 @@ function Hero() {
 
       {/* Mobile-first left veil for copy legibility, then fade into theme bg */}
       <div className="hero-veil-left pointer-events-none absolute inset-0 z-[2]" aria-hidden />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[4] h-28 bg-gradient-to-t from-bg to-transparent md:h-40" aria-hidden />
+      <div className="hero-bottom-fade pointer-events-none absolute inset-x-0 bottom-0 z-[4] h-52 md:h-72" aria-hidden />
 
       <div
         className="relative z-[3] mx-auto w-full max-w-7xl px-6 will-change-transform lg:px-10"
@@ -486,7 +495,7 @@ function Hero() {
 
         <div className="max-w-md md:max-w-lg">
           <p className="mt-6 max-w-lg text-base leading-relaxed text-white/80 md:text-lg">
-            Restaurantul tău pierde bani pe meniu? 25 de ani de bucătărie internațională — Mediaș,
+            Restaurantul tău pierde bani pe meniu? 26 de ani de bucătărie internațională — Mediaș,
             Germania, Belgia — puși în serviciul afacerii tale.
           </p>
 
@@ -495,13 +504,13 @@ function Hero() {
               href="https://wa.me/40741591252"
               target="_blank"
               rel="noreferrer"
-              className="bg-gold-gradient rounded-full px-7 py-3.5 text-sm font-semibold tracking-wide text-[#1b1d1e] shadow-[0_8px_30px_rgba(201,122,61,0.3)] transition hover:brightness-110"
+              className="btn-pop bg-gold-gradient rounded-full px-7 py-3.5 text-sm font-semibold tracking-wide text-[#1b1d1e] shadow-[0_8px_30px_rgba(201,122,61,0.3)] hover:brightness-110"
             >
               Rezervă o discuție
             </a>
             <a
               href="#servicii"
-              className="rounded-full border border-white/25 bg-white/5 px-7 py-3.5 text-sm text-white backdrop-blur-sm transition hover:border-gold hover:text-gold"
+              className="btn-pop rounded-full border border-white/25 bg-white/5 px-7 py-3.5 text-sm text-white backdrop-blur-sm hover:border-gold hover:text-gold"
             >
               Vezi serviciile
             </a>
@@ -535,12 +544,16 @@ function Hero() {
 
       <a
         href="#despre"
-        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] tracking-[0.3em] text-white/45 uppercase transition hover:text-gold max-lg:hidden"
+        className="group absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] tracking-[0.3em] text-white/50 uppercase transition hover:text-gold max-lg:hidden"
         style={{ opacity: Math.max(0, 1 - scrollProgress * 2) }}
-        aria-label="Scroll"
+        aria-label="Mergi mai jos"
       >
         <span>Scroll</span>
-        <span className="block h-8 w-px animate-pulse bg-gradient-to-b from-gold to-transparent" />
+        <span className="scroll-cue flex h-9 w-9 items-center justify-center rounded-full border border-gold/40 text-gold transition group-hover:border-gold group-hover:shadow-[0_0_18px_rgba(201,122,61,0.55)]">
+          <svg viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current" strokeWidth="2.2" aria-hidden>
+            <path strokeLinecap="round" strokeLinejoin="round" d="m6 9 6 6 6-6" />
+          </svg>
+        </span>
       </a>
     </section>
   )
@@ -568,16 +581,22 @@ function Proof() {
     <section className="border-y border-border bg-bg-elevated py-10">
       <div className="mx-auto max-w-6xl px-5">
         <p className="mb-6 text-center text-xs tracking-[0.2em] text-muted uppercase">
-          Au scris despre el
+          Au scris despre mine
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-sm text-muted md:text-base">
-          <span className="font-medium text-fg/80">Monitorul de Mediaș</span>
-          <span className="text-gold/40">·</span>
-          <span className="font-medium text-fg/80">Strada Cetății</span>
-          <span className="text-gold/40">·</span>
-          <span className="font-medium text-fg/80">Complimente Bucătarului</span>
-          <span className="text-gold/40">·</span>
-          <span className="font-medium text-fg/80">UniChef / Unilever</span>
+          {press.map((p, i) => (
+            <Fragment key={p.href}>
+              {i > 0 && <span className="text-gold/40">·</span>}
+              <a
+                href={p.href}
+                target="_blank"
+                rel="noreferrer"
+                className="font-medium text-fg/80 underline-offset-4 transition hover:text-gold hover:underline"
+              >
+                {p.name}
+              </a>
+            </Fragment>
+          ))}
         </div>
       </div>
     </section>
@@ -621,26 +640,26 @@ function About() {
           />
         </div>
         <div>
-          <p className="text-xs tracking-[0.25em] text-gold uppercase">Cine este</p>
+          <p className="text-xs tracking-[0.25em] text-gold uppercase">Cine sunt</p>
           <h2 className="font-display mt-3 text-4xl tracking-wide md:text-5xl">
             CHEF TIBERIU CSISZER
           </h2>
           <div className="section-line mt-4 h-px w-24" />
           <div className="mt-6 space-y-4 text-muted leading-relaxed">
             <p>
-              Povestea începe aproape de sonde: absolvent instalator-sudor, gata de Romgaz — apoi
-              schimbă salopeta pe șorț. În 2000 învață meserie la Sibiu, de la maestrul „nea Liviu”,
-              apoi preia bucătăria unui restaurant din centru.
+              Am pornit aproape de sonde: am terminat instalator-sudor, eram gata de Romgaz — și am
+              schimbat salopeta pe șorț. În 2000 am învățat meseria la Sibiu, de la maestrul „nea
+              Liviu”, apoi am preluat bucătăria unui restaurant din centru.
             </p>
             <p>
-              Salturi în carieră la Bazna și Binderbubi (4★ Mediaș), apoi Düsseldorf la restaurantul
-              Gourmet: nunți de 400 de persoane, somon norvegian, vită din Argentina, sezonalitate
-              reală sub un șef cu stea Michelin.
+              Am făcut salturi la Bazna și la Binderbubi (4★ Mediaș), apoi am plecat la Düsseldorf,
+              la restaurantul Gourmet: nunți de 400 de persoane, somon norvegian, vită din Argentina,
+              sezonalitate reală, sub un șef cu stea Michelin.
             </p>
             <p>
-              Show cooking pe croazieră pe Dunăre. Curs și lucru în Belgia — alături de 50 de
-              bucătari, pentru 5.000 de invitați. Întors acasă: consultanță, training, evenimente,
-              colaborări (inclusiv cu Chef Erni Schmidt) și locul 2 la Best Chef IPA.
+              Am gătit live pe croazieră, pe Dunăre. Am făcut curs și am lucrat în Belgia — alături
+              de 50 de bucătari, pentru 5.000 de invitați. Întors acasă, fac consultanță, training
+              și evenimente; am lucrat cu Chef Erni Schmidt și am luat locul 2 la Best Chef IPA.
             </p>
             <p className="border-l-2 border-gold pl-4 text-fg/90 italic">
               „Pentru mine, bucătăria e o provocare. Ideea mea e să simplific meniurile. Bucătăria e
@@ -648,9 +667,11 @@ function About() {
             </p>
             <p className="text-fg/90">
               <span className="font-medium text-gold">Ce înseamnă asta pentru restaurantul tău:</span>{' '}
-              douăzeci și cinci de ani de greșeli făcute și reparate în bucătării adevărate — de la
-              hotel de patru stele la evenimente de 5.000 de persoane. Nu vin cu teorie de curs, vin
-              cu ce am văzut că ține la pas, în serviciu real, cu personalul pe care îl ai.
+              douăzeci și șase de ani de greșeli făcute și reparate în bucătării adevărate, vreo 25
+              de restaurante puse pe picioare și peste 100 de bucătari instruiți — oameni care azi
+              gătesc pe vase de croazieră, în Germania, în Franța și cei mai mulți aici, în
+              România. Nu vin cu teorie de curs, vin cu ce am văzut că ține la pas, în serviciu
+              real, cu personalul pe care îl ai.
             </p>
           </div>
         </div>
@@ -662,20 +683,34 @@ function About() {
 function Experience() {
   const items = [
     {
-      title: 'Germania · Düsseldorf',
-      text: 'Restaurant Gourmet — evenimente și nunți la scară mare, standarde profesionale, piață zilnică, meniu de sezon.',
+      place: 'Sibiu',
+      country: 'România',
+      role: 'Ucenicie & prima bucătărie',
+      text: 'Am învățat meseria de la maestrul „nea Liviu", apoi am preluat bucătăria unui restaurant din centru.',
     },
     {
-      title: 'Belgia · Catering',
-      text: 'Perfecționare catering. Gătit în echipă de 50 pentru un eveniment cu 5.000 de persoane.',
+      place: 'Düsseldorf',
+      country: 'Germania',
+      role: 'Restaurant Gourmet',
+      text: 'Am gătit nunți de 400 de persoane, cu piață zilnică și sezonalitate reală, sub un șef cu stea Michelin.',
     },
     {
-      title: 'Croazieră Dunăre',
-      text: 'Show cooking live pentru clienți internaționali — specific local adaptat pe țară, inclusiv rețete românești.',
+      place: 'Belgia',
+      country: 'Catering',
+      role: 'Perfecționare',
+      text: 'Am gătit în echipă de 50 de bucătari, pentru un eveniment cu 5.000 de invitați.',
     },
     {
-      title: 'România · Mediaș & Transilvania',
-      text: 'Hotel 4★, consultanță openings, meniuri, evenimente, jurizare concursuri, parteneriate UniChef / Knorr.',
+      place: 'Dunăre',
+      country: 'Croazieră',
+      role: 'Show cooking',
+      text: 'Am gătit live pentru clienți internaționali, adaptând specificul local pe fiecare țară.',
+    },
+    {
+      place: 'Mediaș',
+      country: 'Transilvania',
+      role: 'Consultanță & training',
+      text: 'Am lucrat la hotel de 4★, iar acum fac openings, meniuri, jurizări și parteneriate UniChef / Knorr.',
     },
   ]
 
@@ -686,37 +721,19 @@ function Experience() {
         <h2 className="font-display mt-3 text-4xl tracking-wide md:text-5xl">EXPERIENȚĂ</h2>
         <div className="section-line mt-4 h-px w-24" />
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
+        {/* Timeline rail instead of a grid of boxes */}
+        <ol className="relative mt-14 ml-3 border-l border-border pl-8 md:ml-6 md:pl-12">
           {items.map((item) => (
-            <article key={item.title} className="card-premium rounded-2xl p-6">
-              <h3 className="font-display text-xl tracking-wide text-gold">{item.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{item.text}</p>
-            </article>
+            <li key={item.place} className="group relative pb-12 last:pb-0">
+              <span className="rail-dot absolute top-2 -left-[calc(2rem+5px)] h-2.5 w-2.5 rounded-full bg-gold transition-transform duration-300 group-hover:scale-150 md:-left-[calc(3rem+5px)]" />
+              <p className="text-xs tracking-[0.22em] text-gold/70 uppercase">{item.country}</p>
+              <h3 className="font-display mt-1 text-3xl tracking-wide md:text-4xl">{item.place}</h3>
+              <p className="mt-1 text-sm font-medium text-fg/70">{item.role}</p>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">{item.text}</p>
+            </li>
           ))}
-        </div>
+        </ol>
 
-        <div className="card-premium mt-10 grid items-center gap-8 overflow-hidden rounded-3xl md:grid-cols-2">
-          <img
-            src={img('best-chef-ipa.jpg')}
-            alt="Best Chef IPA — Chef Tiberiu Csiszer"
-            className="h-full min-h-[260px] w-full object-cover"
-          />
-          <div className="p-6 md:p-8">
-            <p className="text-xs tracking-[0.2em] text-gold uppercase">Semnătură & concursuri</p>
-            <h3 className="font-display mt-2 text-3xl tracking-wide">
-              Somon cu măr, spanac & sos de struguri
-            </h3>
-            <p className="mt-4 text-sm leading-relaxed text-muted">
-              Preparat gândit când județul Sibiu a fost Regiune Gastronomică Europeană (2019).
-              Struguri de pe emblema Mediașului — Vechea Metropolă de Vin. Meniuri scurte, puține
-              preparate, top. Influențe maghiare și săsești. Model: Gordon Ramsay · urmărește
-              scenele din RO (Robert Voicu).
-            </p>
-            <p className="mt-4 text-sm text-muted">
-              Best Chef IPA (cu Chef Erni Schmidt) · jurizare · Taste Forward / UniChef Cup.
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   )
@@ -731,13 +748,16 @@ function Services() {
           CONSULTANȚĂ GASTRONOMICĂ
         </h2>
         <p className="mt-4 max-w-2xl text-muted leading-relaxed">
-          Ofer consultanță gastronomică completă — de la deschiderea unui restaurant nou până la
-          plating de nivel înalt, food cost și siguranța alimentației publice.
+          Șapte lucruri pe care le fac, de la primul plan al unui local nou până la ultima farfurie
+          care iese pe pas. Le poți lua pe toate sau doar pe cel care te doare acum.
         </p>
         <div className="section-line mt-4 h-px w-24" />
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
-            <article key={s.title} className="card-premium flex flex-col rounded-2xl p-6 md:p-8">
+            <article
+              key={s.title}
+              className="card-premium card-drift flex flex-col rounded-2xl p-6 md:p-8"
+            >
               <span className="font-display text-3xl text-gold/40">
                 {String(i + 1).padStart(2, '0')}
               </span>
@@ -767,6 +787,10 @@ function Services() {
 }
 
 function Process() {
+  // Steps latch on first hover/touch and stay lit for the rest of the visit.
+  const [lit, setLit] = useState<number[]>([])
+  const light = (i: number) => setLit((prev) => (prev.includes(i) ? prev : [...prev, i]))
+
   return (
     <section id="proces" className="bg-bg-elevated py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-5">
@@ -780,8 +804,29 @@ function Process() {
 
         <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {process.map((p, i) => (
-            <li key={p.step} className="card-premium relative rounded-2xl p-6">
-              <span className="font-display text-4xl text-gold/30">
+            <li
+              key={p.step}
+              onMouseEnter={() => light(i)}
+              onFocus={() => light(i)}
+              onTouchStart={() => light(i)}
+              tabIndex={0}
+              className="card-premium step-card relative rounded-2xl p-6 outline-none"
+              style={
+                lit.includes(i)
+                  ? {
+                      borderColor: 'var(--color-gold)',
+                      boxShadow:
+                        '0 0 0 1px color-mix(in srgb, var(--color-gold) 35%, transparent), 0 14px 38px -20px color-mix(in srgb, var(--color-gold) 60%, transparent)',
+                      transform: 'translateY(-4px)',
+                    }
+                  : undefined
+              }
+            >
+              <span
+                className={`font-display text-4xl transition-colors duration-500 ${
+                  lit.includes(i) ? 'text-gold' : 'text-gold/30'
+                }`}
+              >
                 {String(i + 1).padStart(2, '0')}
               </span>
               <h3 className="mt-2 font-display text-2xl tracking-wide text-gold">{p.step}</h3>
@@ -823,7 +868,7 @@ function Gallery() {
         <p className="text-xs tracking-[0.25em] text-gold uppercase">Preparate · evenimente · chef</p>
         <h2 className="font-display mt-3 text-4xl tracking-wide md:text-5xl">GALERIE</h2>
         <p className="mt-4 max-w-2xl text-muted leading-relaxed">
-          Mâncare semnată, plating, evenimente și momente din carieră — nu doar portrete.
+          Preparate semnate de mine, plating, evenimente și momente din carieră.
         </p>
         <div className="section-line mt-4 h-px w-24" />
         <div className="mt-12 columns-1 gap-4 sm:columns-2 lg:columns-3">
@@ -854,7 +899,30 @@ function Media() {
         <h2 className="font-display mt-3 text-4xl tracking-wide md:text-5xl">MEDIA</h2>
         <div className="section-line mt-4 h-px w-24" />
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-2">
+        {/* Signature dish leads the section — the video below is that dish. */}
+        <div className="card-premium mt-12 grid items-center gap-8 overflow-hidden rounded-3xl md:grid-cols-2">
+          <img
+            src={img('best-chef-ipa.jpg')}
+            alt="Chef Tiberiu Csiszer la Best Chef IPA"
+            className="h-full min-h-[260px] w-full object-cover"
+          />
+          <div className="p-6 md:p-8">
+            <p className="text-xs tracking-[0.2em] text-gold uppercase">Semnătura mea</p>
+            <h3 className="font-display mt-2 text-3xl tracking-wide">
+              Somon cu măr, spanac & sos de struguri
+            </h3>
+            <p className="mt-4 text-sm leading-relaxed text-muted">
+              L-am gândit când județul Sibiu a fost Regiune Gastronomică Europeană (2019). Am pus
+              strugurii de pe emblema Mediașului — Vechea Metropolă de Vin. Așa lucrez: meniuri
+              scurte, puține preparate, dar de top, cu influențe maghiare și săsești.
+            </p>
+            <p className="mt-4 text-sm text-muted">
+              Mai jos e filmarea în care îl gătesc pas cu pas.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-8 grid gap-8 lg:grid-cols-2">
           <div className="card-premium overflow-hidden rounded-3xl">
             <div className="aspect-video w-full">
               <iframe
@@ -913,8 +981,8 @@ function Contact() {
             <h2 className="font-display mt-3 text-4xl tracking-wide md:text-5xl">CONTACT</h2>
             <div className="section-line mt-4 h-px w-24" />
             <p className="mt-6 text-muted leading-relaxed">
-              Openings, refresh restaurant, training, evenimente sau un sfat de meniu. Răspund
-              oricui cere cu seriozitate.
+              Deschideri, refresh de restaurant, training, evenimente sau doar un sfat de meniu —
+              scrie-mi. Răspund oricui vine cu o cerere serioasă.
             </p>
             <div className="mt-8 space-y-3 text-sm">
               <p className="flex items-center gap-3">
@@ -973,7 +1041,7 @@ function Contact() {
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="tel:+40741591252"
-                className="bg-gold-gradient inline-flex rounded-full px-6 py-3 text-sm font-semibold text-black"
+                className="btn-pop bg-gold-gradient inline-flex rounded-full px-6 py-3 text-sm font-semibold text-black"
               >
                 Sună acum
               </a>
@@ -981,13 +1049,13 @@ function Contact() {
                 href="https://wa.me/40741591252"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex rounded-full border border-border px-6 py-3 text-sm text-fg transition hover:border-gold hover:text-gold"
+                className="btn-pop inline-flex rounded-full border border-border px-6 py-3 text-sm text-fg hover:border-gold hover:text-gold"
               >
                 WhatsApp
               </a>
               <a
                 href="mailto:chef_tiberiu13@yahoo.ro"
-                className="inline-flex rounded-full border border-border px-6 py-3 text-sm text-fg transition hover:border-gold hover:text-gold"
+                className="btn-pop inline-flex rounded-full border border-border px-6 py-3 text-sm text-fg hover:border-gold hover:text-gold"
               >
                 Email
               </a>
@@ -1176,7 +1244,7 @@ function ContactForm() {
         </button>
 
         <p className="text-xs text-muted">
-          Datele ajung direct pe emailul lui Chef Tiberiu. Fără liste de marketing.
+          Mesajul ajunge direct pe emailul meu. Nu te trec pe nicio listă de marketing.
         </p>
       </form>
     </div>
@@ -1190,10 +1258,10 @@ function Footer() {
         <div>
           <Logo className="h-14 w-auto" />
           <p className="mt-2 max-w-md text-sm text-muted">
-            Executive Chef · consultant openings & kitchen development · Food & Beverage · team
-            leadership.
+            Executive Chef. Deschid bucătării, le pun pe picioare pe cele existente și instruiesc
+            echipe — în toată țara.
           </p>
-          <p className="mt-3 text-sm text-gold/80 italic">„You reap what you sow."</p>
+          <p className="mt-3 text-sm text-gold/80 italic">"You reap what you sow."</p>
         </div>
         <div className="text-sm text-muted md:text-right">
           <p>© {new Date().getFullYear()} Tiberiu Csiszer</p>
