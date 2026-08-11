@@ -144,23 +144,34 @@ body {
   edge — without it the forearm ends in a hard horizontal cut. The fade must
   start well above the crop so the falloff reads as light, not as a slice.
 */
-.hero-cutout {
-  -webkit-mask-image: linear-gradient(
-    180deg,
-    #000 0%,
-    #000 74%,
-    rgba(0, 0, 0, 0.75) 86%,
-    rgba(0, 0, 0, 0.3) 95%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    180deg,
-    #000 0%,
-    #000 74%,
-    rgba(0, 0, 0, 0.75) 86%,
-    rgba(0, 0, 0, 0.3) 95%,
-    transparent 100%
-  );
+/*
+  The fades live on the CONTAINER, not the img — the img is wider than the
+  container, so an img-level mask's fade zone would be clipped away and the
+  container edge would still cut a hard vertical line.
+*/
+.hero-frame {
+  -webkit-mask-image:
+    linear-gradient(
+      180deg,
+      #000 0%,
+      #000 74%,
+      rgba(0, 0, 0, 0.75) 86%,
+      rgba(0, 0, 0, 0.3) 95%,
+      transparent 100%
+    ),
+    linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.6) 7%, #000 16%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(
+      180deg,
+      #000 0%,
+      #000 74%,
+      rgba(0, 0, 0, 0.75) 86%,
+      rgba(0, 0, 0, 0.3) 95%,
+      transparent 100%
+    ),
+    linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.6) 7%, #000 16%);
+  mask-composite: intersect;
 }
 
 /*
@@ -168,8 +179,8 @@ body {
   horizontal fade with the vertical one — the figure dissolves leftward
   instead of ending in a hard vertical line.
 */
-@media (max-width: 767px) {
-  .hero-cutout {
+@media (max-width: 1023px) {
+  .hero-frame {
     -webkit-mask-image:
       linear-gradient(
         180deg,
@@ -179,7 +190,7 @@ body {
         rgba(0, 0, 0, 0.3) 95%,
         transparent 100%
       ),
-      linear-gradient(90deg, transparent 2%, rgba(0, 0, 0, 0.5) 18%, #000 34%);
+      linear-gradient(90deg, transparent 2%, rgba(0, 0, 0, 0.5) 12%, #000 26%);
     -webkit-mask-composite: source-in;
     mask-image:
       linear-gradient(
@@ -190,7 +201,7 @@ body {
         rgba(0, 0, 0, 0.3) 95%,
         transparent 100%
       ),
-      linear-gradient(90deg, transparent 2%, rgba(0, 0, 0, 0.5) 18%, #000 34%);
+      linear-gradient(90deg, transparent 2%, rgba(0, 0, 0, 0.5) 12%, #000 26%);
     mask-composite: intersect;
   }
 }

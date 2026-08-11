@@ -154,6 +154,62 @@ const mediaLinks = [
   },
 ]
 
+type IconName = 'phone' | 'whatsapp' | 'mail' | 'instagram' | 'linkedin' | 'pin'
+
+/** Inline contact icons — stroke style, inherit currentColor. */
+function Icon({ name, className = 'h-4 w-4' }: { name: IconName; className?: string }) {
+  const stroke = {
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 1.8,
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+  } as const
+
+  switch (name) {
+    case 'phone':
+      return (
+        <svg viewBox="0 0 24 24" className={className} {...stroke} aria-hidden>
+          <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7A2 2 0 0 1 22 16.9z" />
+        </svg>
+      )
+    case 'whatsapp':
+      return (
+        <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+      )
+    case 'mail':
+      return (
+        <svg viewBox="0 0 24 24" className={className} {...stroke} aria-hidden>
+          <rect x="2" y="4" width="20" height="16" rx="2" />
+          <path d="m22 7-10 6L2 7" />
+        </svg>
+      )
+    case 'instagram':
+      return (
+        <svg viewBox="0 0 24 24" className={className} {...stroke} aria-hidden>
+          <rect x="2" y="2" width="20" height="20" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+        </svg>
+      )
+    case 'linkedin':
+      return (
+        <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
+          <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
+        </svg>
+      )
+    case 'pin':
+      return (
+        <svg viewBox="0 0 24 24" className={className} {...stroke} aria-hidden>
+          <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z" />
+          <circle cx="12" cy="10" r="3" />
+        </svg>
+      )
+  }
+}
+
 /**
  * Two transparent PNGs — white art for dark surfaces, near-black for light.
  * CSS picks one, so no blend modes and no white plate behind the mark.
@@ -357,7 +413,7 @@ function Hero() {
   return (
     <section
       id="top"
-      className="hero-plate relative flex min-h-svh items-center overflow-hidden pb-16 pt-24 md:pb-20"
+      className="hero-plate relative flex min-h-svh items-center overflow-hidden pb-16 pt-24 max-lg:min-h-0 max-lg:items-start max-lg:pt-32 max-lg:pb-24 md:pb-20"
     >
       {/* Studio backdrop: grey spotlight behind the figure, vignette edges */}
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
@@ -371,7 +427,7 @@ function Hero() {
         Scroll: clear scale-up.
       */}
       <div
-        className="pointer-events-none absolute inset-y-0 right-0 z-[1] w-[46%] overflow-hidden max-md:w-[62%] md:w-[46%] lg:w-[44%]"
+        className="hero-frame pointer-events-none absolute inset-y-0 right-0 z-[1] overflow-hidden max-lg:w-full lg:w-[50%]"
         aria-hidden
       >
         <div
@@ -391,12 +447,13 @@ function Hero() {
               fetchPriority="high"
               decoding="async"
               className={[
-                'hero-cutout absolute bottom-0 w-auto max-w-none select-none object-contain object-bottom',
-                /* Onetiu framing: head near the top, body runs off the bottom */
-                'right-0 h-[88svh]',
-                'max-md:right-[-24%] max-md:h-[72svh]',
-                'md:right-[-2%] md:h-[88svh]',
-                'lg:right-2 lg:h-[92svh]',
+                'absolute w-auto max-w-none select-none object-contain',
+                /* Phone: anchor to the TOP so the head sits in the free
+                   top-right corner beside the name; the body runs down
+                   behind the copy and dissolves through the masks. */
+                'max-lg:top-14 max-lg:right-1 max-lg:h-[50svh] max-lg:object-top',
+                /* Desktop: full figure standing on the section bottom */
+                'lg:bottom-0 lg:object-bottom lg:right-0 lg:h-[97svh]',
               ].join(' ')}
             />
           </picture>
@@ -408,7 +465,7 @@ function Hero() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[4] h-28 bg-gradient-to-t from-bg to-transparent md:h-40" aria-hidden />
 
       <div
-        className="relative z-[3] mx-auto w-full max-w-6xl px-5 will-change-transform"
+        className="relative z-[3] mx-auto w-full max-w-7xl px-6 will-change-transform lg:px-10"
         style={{
           opacity: contentOpacity,
           transform: `translate3d(0, ${contentY}px, 0)`,
@@ -419,7 +476,7 @@ function Hero() {
           Executive Chef · Consultant Culinar
         </p>
 
-        <h1 className="font-display text-[clamp(2.75rem,7.5vw,6rem)] leading-[0.92] tracking-wide text-white">
+        <h1 className="font-display text-[clamp(3rem,8.5vw,7.5rem)] leading-[0.92] tracking-wide text-white">
           TIBERIU
           <br />
           <span className="hero-name-gold">CSISZER</span>
@@ -469,7 +526,7 @@ function Hero() {
 
       <a
         href="#despre"
-        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] tracking-[0.3em] text-white/45 uppercase transition hover:text-gold"
+        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] tracking-[0.3em] text-white/45 uppercase transition hover:text-gold max-lg:hidden"
         style={{ opacity: Math.max(0, 1 - scrollProgress * 2) }}
         aria-label="Scroll"
       >
@@ -851,14 +908,14 @@ function Contact() {
               oricui cere cu seriozitate.
             </p>
             <div className="mt-8 space-y-3 text-sm">
-              <p>
-                <span className="text-muted">Telefon · </span>
+              <p className="flex items-center gap-3">
+                <Icon name="phone" className="h-4 w-4 shrink-0 text-muted" />
                 <a href="tel:+40741591252" className="text-gold hover:underline">
                   0741 591 252
                 </a>
               </p>
-              <p>
-                <span className="text-muted">WhatsApp · </span>
+              <p className="flex items-center gap-3">
+                <Icon name="whatsapp" className="h-4 w-4 shrink-0 text-muted" />
                 <a
                   href="https://wa.me/40741591252"
                   target="_blank"
@@ -868,8 +925,8 @@ function Contact() {
                   0741 591 252
                 </a>
               </p>
-              <p>
-                <span className="text-muted">Email · </span>
+              <p className="flex items-center gap-3">
+                <Icon name="mail" className="h-4 w-4 shrink-0 text-muted" />
                 <a
                   href="mailto:chef_tiberiu13@yahoo.ro"
                   className="text-gold hover:underline"
@@ -877,8 +934,8 @@ function Contact() {
                   chef_tiberiu13@yahoo.ro
                 </a>
               </p>
-              <p>
-                <span className="text-muted">Instagram · </span>
+              <p className="flex items-center gap-3">
+                <Icon name="instagram" className="h-4 w-4 shrink-0 text-muted" />
                 <a
                   href="https://www.instagram.com/cheftiberiucsiszer/"
                   target="_blank"
@@ -888,8 +945,8 @@ function Contact() {
                   @cheftiberiucsiszer
                 </a>
               </p>
-              <p>
-                <span className="text-muted">LinkedIn · </span>
+              <p className="flex items-center gap-3">
+                <Icon name="linkedin" className="h-4 w-4 shrink-0 text-muted" />
                 <a
                   href="https://ro.linkedin.com/in/csiszer-tiberiu-49095a36"
                   target="_blank"
@@ -899,8 +956,8 @@ function Contact() {
                   Csiszer Tiberiu
                 </a>
               </p>
-              <p>
-                <span className="text-muted">Locație · </span>
+              <p className="flex items-center gap-3">
+                <Icon name="pin" className="h-4 w-4 shrink-0 text-muted" />
                 <span className="text-fg">Mediaș, România</span>
               </p>
             </div>
