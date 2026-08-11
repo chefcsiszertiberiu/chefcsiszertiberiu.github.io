@@ -323,7 +323,7 @@ function Hero() {
         Scroll: clear scale-up.
       */}
       <div
-        className="pointer-events-none absolute inset-y-0 right-0 z-[3] w-[58%] overflow-hidden max-md:w-[52%] md:w-[50%] lg:w-[48%]"
+        className="pointer-events-none absolute inset-y-0 right-0 z-[3] w-[64%] overflow-hidden max-md:w-[58%] md:w-[56%] lg:w-[54%]"
         aria-hidden
       >
         <div
@@ -341,11 +341,12 @@ function Hero() {
             fetchPriority="high"
             decoding="async"
             className={[
-              'absolute bottom-0 h-[min(96svh,980px)] w-auto max-w-none select-none object-contain object-bottom',
+              /* hero-cutout: lighten blend melts the black plate into the bg */
+              'hero-cutout absolute bottom-0 h-[min(102svh,1040px)] w-auto max-w-none select-none object-contain object-bottom',
               /* phone: only ~half of figure in the right zone */
-              'right-0 max-md:right-[-38%] max-md:h-[82svh]',
-              'md:right-0 md:h-[min(94svh,960px)]',
-              'lg:right-4',
+              'right-0 max-md:right-[-38%] max-md:h-[88svh]',
+              'md:right-0 md:h-[min(100svh,1020px)]',
+              'lg:right-0',
             ].join(' ')}
           />
         </div>

@@ -144,6 +144,17 @@ body {
   object-fit: cover;
 }
 
+/*
+  Cutout JPEG sits on a black plate. lighten keeps only pixels brighter than
+  the backdrop, so the plate vanishes on the dark hero and just the figure
+  reads. Side masks soften the hard photo edges so nothing looks pasted.
+*/
+.hero-cutout {
+  mix-blend-mode: lighten;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 100%);
+}
+
 /* Hero name gold — hero plate is always dark, so never the light-theme gold */
 .hero-name-gold {
   background: linear-gradient(135deg, #f5c15a 0%, #e8a317 45%, #c4840a 100%);
