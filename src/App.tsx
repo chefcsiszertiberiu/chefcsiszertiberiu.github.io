@@ -104,6 +104,14 @@ const services = [
 const gallery = [
   // — Mâncare —
   { src: img('food-creveti.jpg'), alt: 'Fine dining — creveți și mousse' },
+  { src: img('food-piept-pui-trufe.jpg'), alt: 'Piept de pui cu piure și trufe — plating fine dining' },
+  { src: img('food-platou-aperitiv.jpg'), alt: 'Platou de aperitive pentru eveniment' },
+  { src: img('food-creveti-cocotte.jpg'), alt: 'Creveți în cocotte cu ierburi proaspete' },
+  { src: img('food-galuste-prune.jpg'), alt: 'Găluște cu prune, sos de vanilie și afine' },
+  { src: img('signature-tuile.jpg'), alt: 'Așez tuile-ul crocant peste somon' },
+  { src: img('food-salata-linte.jpg'), alt: 'Salată de linte cu legume și ulei de ierburi' },
+  { src: img('food-gulas.jpg'), alt: 'Gulaș cu galuște' },
+  { src: img('food-pulled-pork.jpg'), alt: 'Sandwich cu pulled pork și coleslaw' },
   { src: img('food-canape.jpg'), alt: 'Canape premium pentru eveniment' },
   { src: img('food-platter-mezeluri.jpg'), alt: 'Platter tradițional mezeluri și brânzeturi' },
   { src: img('food-desert-pahar.jpg'), alt: 'Desert în pahar cu fructe' },
@@ -121,7 +129,6 @@ const gallery = [
   { src: img('food-burger-premium.jpg'), alt: 'Burger premium cu cartofi wedges' },
   // — Chef / evenimente (deja pe site) —
   { src: img('mussels.jpg'), alt: 'Show cooking midii la eveniment' },
-  { src: img('roast-slice.jpg'), alt: 'Tranșare preparat premium' },
   { src: img('spit-roast.jpg'), alt: 'Miel la proțap' },
   { src: img('platters.jpg'), alt: 'Platouri pentru eveniment' },
   { src: img('duo-fire.jpg'), alt: 'Alături de Erni Schmidt' },
@@ -621,60 +628,77 @@ function Stats() {
 function About() {
   return (
     <section id="despre" className="py-16 md:py-24">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
-        <div className="grid grid-cols-2 gap-3">
+      <div className="mx-auto max-w-6xl px-5">
+        {/* One framed block: salmon backdrop, single portrait, the story. */}
+        <div className="relative overflow-hidden rounded-3xl border border-border">
+          {/* Ceaun backdrop, not the salmon — the salmon belongs to Semnătura. */}
           <img
-            src={img('hero.jpg')}
-            alt="Chef Tiberiu Csiszer"
-            className="row-span-2 h-full min-h-[320px] rounded-2xl object-cover object-top"
+            src={img('food-ceaun.jpg')}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-cover"
           />
-          <img
-            src={img('portrait-smile.jpg')}
-            alt="Portret Chef Tiberiu"
-            className="h-40 rounded-2xl object-cover sm:h-48"
-          />
-          <img
-            src={img('roast-slice.jpg')}
-            alt="Preparat semnat"
-            className="h-40 rounded-2xl object-cover sm:h-48"
-          />
-        </div>
-        <div>
-          <p className="text-xs tracking-[0.25em] text-gold uppercase">Cine sunt</p>
-          <h2 className="font-display mt-3 text-4xl tracking-wide md:text-5xl">
-            CHEF TIBERIU CSISZER
-          </h2>
-          <div className="section-line mt-4 h-px w-24" />
-          <div className="mt-6 space-y-4 text-muted leading-relaxed">
-            <p>
-              Am pornit aproape de sonde: am terminat instalator-sudor, eram gata de Romgaz — și am
-              schimbat salopeta pe șorț. Primii pași în bucătăria adevărată i-am făcut lângă
-              maestrul bucătar Nicu Catană; nu mai e printre noi, dar de la el am înțeles ce
-              înseamnă meseria asta. În 2000 am mers la Sibiu, la nea Liviu, iar de acolo am
-              preluat bucătăria unui restaurant din centru.
-            </p>
-            <p>
-              Am făcut salturi la Bazna și la Binderbubi (4★ Mediaș), apoi am plecat la Düsseldorf,
-              la restaurantul Gourmet: nunți de 400 de persoane, somon norvegian, vită din Argentina,
-              sezonalitate reală, sub un șef cu stea Michelin.
-            </p>
-            <p>
-              Am gătit live pe croazieră, pe Dunăre. Am făcut curs și am lucrat în Belgia — alături
-              de 50 de bucătari, pentru 5.000 de invitați. Întors acasă, fac consultanță, training
-              și evenimente; am făcut echipă cu Erni Schmidt și am luat locul 1 la Best Chef IPA.
-            </p>
-            <p className="border-l-2 border-gold pl-4 text-fg/90 italic">
-              „Pentru mine, bucătăria e o provocare. Ideea mea e să simplific meniurile. Bucătăria e
-              un tărâm cu reguli fixe, dar și cu posibilitatea de a crea.”
-            </p>
-            <p className="text-fg/90">
-              <span className="font-medium text-gold">Ce înseamnă asta pentru restaurantul tău:</span>{' '}
-              douăzeci și șase de ani de greșeli făcute și reparate în bucătării adevărate, vreo 25
-              de restaurante puse pe picioare și peste 100 de bucătari instruiți — oameni care azi
-              gătesc pe vase de croazieră, în Germania, în Franța și cei mai mulți aici, în
-              România. Nu vin cu teorie de curs, vin cu ce am văzut că ține la pas, în serviciu
-              real, cu personalul pe care îl ai.
-            </p>
+          <div className="signature-veil absolute inset-0" />
+
+          <div className="relative grid items-center gap-10 p-6 md:p-10 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1fr)]">
+            <img
+              src={img('hero.jpg')}
+              alt="Chef Tiberiu Csiszer"
+              className="h-full max-h-[520px] min-h-[300px] w-full rounded-2xl border border-white/15 object-cover object-top"
+            />
+
+            <div>
+              <p className="text-xs tracking-[0.25em] text-gold uppercase">Cine sunt</p>
+              <h2 className="font-display mt-3 text-4xl tracking-wide text-white md:text-5xl">
+                CHEF TIBERIU CSISZER
+              </h2>
+              <div className="section-line mt-4 h-px w-24" />
+              <div className="mt-6 space-y-4 leading-relaxed text-white/75">
+                <p>
+                  Am pornit aproape de sonde: am terminat instalator-sudor, eram gata de Romgaz —
+                  și am schimbat salopeta pe șorț. Primii pași în bucătăria adevărată i-am făcut
+                  lângă maestrul bucătar Nicu Catană; nu mai e printre noi, dar de la el am înțeles
+                  ce înseamnă meseria asta. În 2000 am mers la Sibiu, la nea Liviu, iar de acolo am
+                  preluat bucătăria unui restaurant din centru.
+                </p>
+                <p>
+                  Am făcut salturi la Bazna și la Binder-Bubi (4★ Mediaș), apoi am plecat la
+                  Düsseldorf, la restaurantul Gourmet: nunți de 400 de persoane, somon norvegian,
+                  vită din Argentina, sezonalitate reală, sub un șef cu stea Michelin.
+                </p>
+                <p>
+                  Am gătit live pe croazieră, pe Dunăre. Am făcut curs și am lucrat în Belgia —
+                  alături de 50 de bucătari, pentru 5.000 de invitați. Întors acasă, fac
+                  consultanță, training și evenimente; am făcut echipă cu Erni Schmidt și am luat
+                  locul 1 la Best Chef IPA.
+                </p>
+                <p>
+                  Lucrez foarte bine cu Chef Septimiu Misin și cu Chef Robert Voicu de la Unilever
+                  Food Solutions — colaborări care țin de ani buni.
+                </p>
+                <p>
+                  Proiectul meu de suflet e <span className="text-white">Hanul Greweln</span> din
+                  Mediaș — acolo am pus în meniu gastronomia celor trei etnii care trăiesc
+                  împreună în oraș: română, germană și maghiară. Printre altele, am semnat
+                  bucătăria și la Hotel Binder-Bubi Mediaș, la Complexul Vața Băi și la Hanul
+                  Moara cu Noroc din Ineu.
+                </p>
+                <p className="border-l-2 border-gold pl-4 text-white/90 italic">
+                  „Pentru mine, bucătăria e o provocare. Ideea mea e să simplific meniurile.
+                  Bucătăria e un tărâm cu reguli fixe, dar și cu posibilitatea de a crea.”
+                </p>
+                <p className="text-white/90">
+                  <span className="font-medium text-gold">
+                    Ce înseamnă asta pentru restaurantul tău:
+                  </span>{' '}
+                  douăzeci și șase de ani de greșeli făcute și reparate în bucătării adevărate,
+                  vreo 25 de restaurante puse pe picioare și peste 100 de bucătari instruiți —
+                  oameni care azi gătesc pe vase de croazieră, în Germania, în Franța și cei mai
+                  mulți aici, în România. Nu vin cu teorie de curs, vin cu ce am văzut că ține la
+                  pas, în serviciu real, cu personalul pe care îl ai.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -901,47 +925,56 @@ function Media() {
         <h2 className="font-display mt-3 text-4xl tracking-wide md:text-5xl">MEDIA</h2>
         <div className="section-line mt-4 h-px w-24" />
 
-        {/* Signature dish leads the section — the video below is that dish. */}
-        <div className="card-premium mt-12 grid items-center gap-8 overflow-hidden rounded-3xl md:grid-cols-2">
+        {/*
+          Signature dish: the wide plated shot is the backdrop, the tuile photo
+          and the video of the same dish sit on top — one block, not three.
+        */}
+        <div className="relative mt-12 overflow-hidden rounded-3xl border border-border">
           <img
-            src={img('best-chef-ipa.jpg')}
-            alt="Chef Tiberiu Csiszer la Best Chef IPA"
-            className="h-full min-h-[260px] w-full object-cover"
+            src={img('signature-salmon-wide.jpg')}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="p-6 md:p-8">
-            <p className="text-xs tracking-[0.2em] text-gold uppercase">Semnătura mea</p>
-            <h3 className="font-display mt-2 text-3xl tracking-wide">
-              Somon cu măr, spanac & sos de struguri
-            </h3>
-            <p className="mt-4 text-sm leading-relaxed text-muted">
-              L-am gândit când județul Sibiu a fost Regiune Gastronomică Europeană (2019). Am pus
-              strugurii de pe emblema Mediașului — Vechea Metropolă de Vin. Așa lucrez: meniuri
-              scurte, puține preparate, dar de top, cu influențe maghiare și săsești.
-            </p>
-            <p className="mt-4 text-sm text-muted">
-              Mai jos e filmarea în care îl gătesc pas cu pas.
-            </p>
+          <div className="signature-veil absolute inset-0" />
+
+          <div className="relative grid gap-8 p-6 md:p-10 lg:grid-cols-2 lg:items-center">
+            <div>
+              <p className="text-xs tracking-[0.2em] text-gold uppercase">Semnătura mea</p>
+              <h3 className="font-display mt-2 text-3xl tracking-wide text-white md:text-4xl">
+                Somon cu măr, spanac & sos de struguri
+              </h3>
+              <p className="mt-4 text-sm leading-relaxed text-white/80">
+                L-am gândit când județul Sibiu a fost Regiune Gastronomică Europeană (2019). Am pus
+                strugurii de pe emblema Mediașului — Vechea Metropolă de Vin. Așa lucrez: meniuri
+                scurte, puține preparate, dar de top, cu influențe maghiare și săsești.
+              </p>
+            </div>
+
+            <div className="overflow-hidden rounded-2xl border border-white/15 bg-black/40 backdrop-blur-sm">
+              <div className="aspect-video w-full">
+                <iframe
+                  className="h-full w-full"
+                  src="https://www.youtube.com/embed/f58jVwtkzNo"
+                  title="Somon cu măr și spanac — Chef Tiberiu Csiszer"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+              <div className="p-5">
+                <p className="font-display text-xl tracking-wide text-white">
+                  Îl gătesc pas cu pas
+                </p>
+                <p className="mt-1 text-sm text-white/70">
+                  Rețetă video · Bouquet de Provence / Knorr
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-2">
-          <div className="card-premium overflow-hidden rounded-3xl">
-            <div className="aspect-video w-full">
-              <iframe
-                className="h-full w-full"
-                src="https://www.youtube.com/embed/f58jVwtkzNo"
-                title="Somon cu măr și spanac — Chef Tiberiu Csiszer"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-            <div className="p-5">
-              <p className="font-display text-xl tracking-wide">Somon cu măr și spanac</p>
-              <p className="mt-1 text-sm text-muted">Rețetă video · Bouquet de Provence / Knorr</p>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-4">
+        <div className="mt-8">
+          <div className="grid gap-4 md:grid-cols-3">
             {mediaLinks.map((m) => (
               <a
                 key={m.href}
@@ -954,18 +987,23 @@ function Media() {
                 <p className="mt-2 font-medium text-fg group-hover:text-gold-soft">{m.title}</p>
               </a>
             ))}
-            <div className="grid grid-cols-2 gap-3">
-              <img
-                src={img('media-group.jpg')}
-                alt="Filmări media"
-                className="h-28 rounded-xl object-cover sm:h-32"
-              />
-              <img
-                src={img('taste-forward.jpg')}
-                alt="Taste Forward 2025"
-                className="h-28 rounded-xl object-cover sm:h-32"
-              />
-            </div>
+          </div>
+          <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
+            <img
+              src={img('media-group.jpg')}
+              alt="Filmări media"
+              className="h-32 w-full rounded-xl object-cover sm:h-40"
+            />
+            <img
+              src={img('taste-forward.jpg')}
+              alt="Taste Forward 2025"
+              className="h-32 w-full rounded-xl object-cover sm:h-40"
+            />
+            <img
+              src={img('best-chef-ipa.jpg')}
+              alt="Best Chef IPA — locul 1"
+              className="col-span-2 h-32 w-full rounded-xl object-cover sm:h-40 md:col-span-1"
+            />
           </div>
         </div>
       </div>

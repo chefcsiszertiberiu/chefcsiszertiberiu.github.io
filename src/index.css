@@ -187,6 +187,22 @@ body {
   );
 }
 
+/*
+  Signature block: the plated-salmon photo is the backdrop, so the veil has
+  to be dark enough for white body copy at AA contrast in both themes —
+  hence a fixed dark wash rather than a theme variable.
+*/
+.signature-veil {
+  background: linear-gradient(
+      90deg,
+      rgba(14, 15, 16, 0.94) 0%,
+      rgba(14, 15, 16, 0.86) 45%,
+      rgba(14, 15, 16, 0.66) 75%,
+      rgba(14, 15, 16, 0.55) 100%
+    ),
+    linear-gradient(0deg, rgba(14, 15, 16, 0.5) 0%, transparent 45%);
+}
+
 /* Scroll cue: chevron drifts down and dims, then repeats. */
 @keyframes scroll-bounce {
   0%,
