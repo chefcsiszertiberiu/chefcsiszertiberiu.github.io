@@ -108,7 +108,7 @@ const gallery = [
   { src: img('food-platou-aperitiv.jpg'), alt: 'Platou de aperitive pentru eveniment' },
   { src: img('food-creveti-cocotte.jpg'), alt: 'Creveți în cocotte cu ierburi proaspete' },
   { src: img('food-galuste-prune.jpg'), alt: 'Găluște cu prune, sos de vanilie și afine' },
-  { src: img('signature-tuile.jpg'), alt: 'Așez tuile-ul crocant peste somon' },
+  { src: img('somon-signature-plate.jpg'), alt: 'Somon cu măr, spanac și sos de struguri — preparatul semnătură' },
   { src: img('food-salata-linte.jpg'), alt: 'Salată de linte cu legume și ulei de ierburi' },
   { src: img('food-gulas.jpg'), alt: 'Gulaș cu galuște' },
   { src: img('food-pulled-pork.jpg'), alt: 'Sandwich cu pulled pork și coleslaw' },
@@ -629,9 +629,8 @@ function About() {
   return (
     <section id="despre" className="py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-5">
-        {/* One framed block: salmon backdrop, single portrait, the story. */}
+        {/* One framed block: ceaun backdrop, single portrait, the story. */}
         <div className="relative overflow-hidden rounded-3xl border border-border">
-          {/* Ceaun backdrop, not the salmon — the salmon belongs to Semnătura. */}
           <img
             src={img('food-ceaun.jpg')}
             alt=""
@@ -673,8 +672,9 @@ function About() {
                   locul 1 la Best Chef IPA.
                 </p>
                 <p>
-                  Lucrez foarte bine cu Chef Septimiu Misin și cu Chef Robert Voicu de la Unilever
-                  Food Solutions — colaborări care țin de ani buni.
+                  Colaborări care țin de ani buni cu Chef Septimiu Misin și Chef Robert Voicu de la
+                  Unilever Food Solutions. Jurizări de concursuri gastronomice naționale și
+                  internaționale, alături de Erni Schmidt.
                 </p>
                 <p>
                   Proiectul meu de suflet e <span className="text-white">Hanul Greweln</span> din
@@ -988,21 +988,35 @@ function Media() {
               </a>
             ))}
           </div>
-          <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
+          {/*
+            The IPA poster is type-heavy: object-cover chopped the title and
+            the faces, so it gets its own card and object-contain instead.
+          */}
+          <div className="card-premium mt-6 overflow-hidden rounded-2xl">
+            {/* Poster is 1:1 — a square frame avoids letterbox bars. */}
+            <img
+              src={img('best-chef-ipa.jpg')}
+              alt="Best Chef IPA, ediția a IV-a — concurs internațional de gastronomie"
+              className="mx-auto aspect-square w-full max-w-[560px] object-contain"
+            />
+            <div className="p-5">
+              <p className="text-xs tracking-[0.2em] text-gold uppercase">Locul 1</p>
+              <p className="font-display mt-1 text-xl tracking-wide">
+                Best Chef IPA — concurs internațional de gastronomie
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-4 grid grid-cols-2 gap-4">
             <img
               src={img('media-group.jpg')}
               alt="Filmări media"
-              className="h-32 w-full rounded-xl object-cover sm:h-40"
+              className="h-32 w-full rounded-xl object-cover sm:h-44"
             />
             <img
               src={img('taste-forward.jpg')}
               alt="Taste Forward 2025"
-              className="h-32 w-full rounded-xl object-cover sm:h-40"
-            />
-            <img
-              src={img('best-chef-ipa.jpg')}
-              alt="Best Chef IPA — locul 1"
-              className="col-span-2 h-32 w-full rounded-xl object-cover sm:h-40 md:col-span-1"
+              className="h-32 w-full rounded-xl object-cover sm:h-44"
             />
           </div>
         </div>
