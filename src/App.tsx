@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
 
+/** Works on localhost + GitHub Pages base path */
+const img = (file: string) =>
+  `${import.meta.env.BASE_URL}images/${file.replace(/^\/?images\//, '')}`
+
 const nav = [
   { href: '#despre', label: 'Despre' },
   { href: '#experienta', label: 'Experiență' },
@@ -36,18 +40,18 @@ const services = [
 ]
 
 const gallery = [
-  { src: '/images/mussels.jpg', alt: 'Show cooking midii la eveniment' },
-  { src: '/images/roast-slice.jpg', alt: 'Tranșare preparat premium' },
-  { src: '/images/spit-roast.jpg', alt: 'Miel la proțap' },
-  { src: '/images/platters.jpg', alt: 'Platouri pentru eveniment' },
-  { src: '/images/duo-fire.jpg', alt: 'Alături de Chef Erni Schmidt' },
-  { src: '/images/kitchen-team.jpg', alt: 'Training în bucătărie profesională' },
-  { src: '/images/medals.jpg', alt: 'Echipă cu medalii la concurs' },
-  { src: '/images/jury-mussels.jpg', alt: 'Jurizare Best Chef IPA' },
-  { src: '/images/unichef-booth.jpg', alt: 'UniChef · Unilever Food Solutions' },
-  { src: '/images/taste-forward.jpg', alt: 'Taste Forward 2025 București' },
-  { src: '/images/media-interview.jpg', alt: 'Interviu media' },
-  { src: '/images/bilancia.jpg', alt: 'Bilancia · parteneriate culinare' },
+  { src: img('mussels.jpg'), alt: 'Show cooking midii la eveniment' },
+  { src: img('roast-slice.jpg'), alt: 'Tranșare preparat premium' },
+  { src: img('spit-roast.jpg'), alt: 'Miel la proțap' },
+  { src: img('platters.jpg'), alt: 'Platouri pentru eveniment' },
+  { src: img('duo-fire.jpg'), alt: 'Alături de Chef Erni Schmidt' },
+  { src: img('kitchen-team.jpg'), alt: 'Training în bucătărie profesională' },
+  { src: img('medals.jpg'), alt: 'Echipă cu medalii la concurs' },
+  { src: img('jury-mussels.jpg'), alt: 'Jurizare Best Chef IPA' },
+  { src: img('unichef-booth.jpg'), alt: 'UniChef · Unilever Food Solutions' },
+  { src: img('taste-forward.jpg'), alt: 'Taste Forward 2025 București' },
+  { src: img('media-interview.jpg'), alt: 'Interviu media' },
+  { src: img('bilancia.jpg'), alt: 'Bilancia · parteneriate culinare' },
 ]
 
 const mediaLinks = [
@@ -176,7 +180,7 @@ function Hero() {
       {/* Full-bleed presentation photo — onetiu-style */}
       <div className="absolute inset-0">
         <img
-          src="/images/about.jpg"
+          src={img('about.jpg')}
           alt=""
           width={1920}
           height={1080}
@@ -320,17 +324,17 @@ function About() {
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
         <div className="grid grid-cols-2 gap-3">
           <img
-            src="/images/hero.jpg"
+            src={img('hero.jpg')}
             alt="Chef Tiberiu Csiszer"
             className="row-span-2 h-full min-h-[320px] rounded-2xl object-cover object-top"
           />
           <img
-            src="/images/portrait-smile.jpg"
+            src={img('portrait-smile.jpg')}
             alt="Portret Chef Tiberiu"
             className="h-40 rounded-2xl object-cover sm:h-48"
           />
           <img
-            src="/images/roast-slice.jpg"
+            src={img('roast-slice.jpg')}
             alt="Preparat semnat"
             className="h-40 rounded-2xl object-cover sm:h-48"
           />
@@ -406,7 +410,7 @@ function Experience() {
 
         <div className="card-premium mt-10 grid items-center gap-8 overflow-hidden rounded-3xl md:grid-cols-2">
           <img
-            src="/images/best-chef-ipa.jpg"
+            src={img('best-chef-ipa.jpg')}
             alt="Best Chef IPA — Chef Tiberiu Csiszer"
             className="h-full min-h-[260px] w-full object-cover"
           />
@@ -514,12 +518,12 @@ function Media() {
             ))}
             <div className="grid grid-cols-2 gap-3">
               <img
-                src="/images/media-group.jpg"
+                src={img('media-group.jpg')}
                 alt="Filmări media"
                 className="h-28 rounded-xl object-cover sm:h-32"
               />
               <img
-                src="/images/taste-forward.jpg"
+                src={img('taste-forward.jpg')}
                 alt="Taste Forward 2025"
                 className="h-28 rounded-xl object-cover sm:h-32"
               />
@@ -622,7 +626,7 @@ function Contact() {
             </div>
           </div>
           <img
-            src="/images/spit-roast.jpg"
+            src={img('spit-roast.jpg')}
             alt="Chef Tiberiu la eveniment outdoor"
             className="min-h-[280px] w-full object-cover"
           />

@@ -2,6 +2,10 @@
 
 Site portofoliu: Executive Chef · Consultant culinar.
 
+## Live (GitHub Pages)
+
+**https://georgelush.github.io/cheftiberiucsiszer/**
+
 ## Dev
 
 ```bash
