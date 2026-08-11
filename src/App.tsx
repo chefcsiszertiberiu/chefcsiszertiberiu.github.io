@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react'
+﻿import { Fragment, useEffect, useState } from 'react'
 
 /** Works on localhost + GitHub Pages base path */
 const img = (file: string) =>
@@ -53,7 +53,11 @@ const process = [
 const competitions = [
   { title: 'Best Chef IPA — locul 1', detail: 'Am câștigat ediția a II-a, făcând echipă cu Erni Schmidt' },
   { title: 'Vándorcsizma — juriu', detail: 'Am jurizat concursul de gulaș de la festivalul de dansuri populare' },
-  { title: 'UniChef Cup', detail: 'Am jurizat și am ținut demonstrații pentru Unilever Food Solutions' },
+  { title: 'UniChef Cup 2022', detail: 'Am fost finalist la ediția din 2022' },
+  {
+    title: 'Unilever Food Solutions',
+    detail: 'Particip activ la demonstrațiile organizate de ei',
+  },
   { title: 'Taste Forward 2025', detail: 'Am fost prezent la ediția din București' },
 ]
 
@@ -103,6 +107,10 @@ const services = [
 /** Galerie mixtă: preparate + chef / evenimente */
 const gallery = [
   // — Mâncare —
+  { src: img('duo-chef-fire.jpg'), alt: 'Alături de Erni Schmidt, în bucătărie' },
+  { src: img('plating-detaliu.jpg'), alt: 'Plating la milimetru, cu mănuși' },
+  { src: img('concurs-unichef.jpg'), alt: 'La concurs, în echipament UniChef' },
+  { src: img('fc-universitatea-cluj.jpg'), alt: 'La FC Universitatea Cluj' },
   { src: img('food-creveti.jpg'), alt: 'Fine dining — creveți și mousse' },
   { src: img('food-piept-pui-trufe.jpg'), alt: 'Piept de pui cu piure și trufe — plating fine dining' },
   { src: img('food-platou-aperitiv.jpg'), alt: 'Platou de aperitive pentru eveniment' },
@@ -736,7 +744,7 @@ function Experience() {
       place: 'Mediaș',
       country: 'Transilvania',
       role: 'Consultanță & training',
-      text: 'Am lucrat la hotel de 4★, iar acum fac openings, meniuri, jurizări și parteneriate UniChef / Knorr.',
+      text: 'Am lucrat la hotel de 4★, iar acum fac openings, meniuri, jurizări și demonstrații cu Unilever Food Solutions.',
     },
   ]
 
@@ -887,7 +895,109 @@ function Competitions() {
   )
 }
 
+function Lightbox({
+  item,
+  index,
+  total,
+  onClose,
+  onPrev,
+  onNext,
+}: {
+  item: { src: string; alt: string }
+  index: number
+  total: number
+  onClose: () => void
+  onPrev: () => void
+  onNext: () => void
+}) {
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={item.alt}
+      onClick={onClose}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/92 p-4 backdrop-blur-sm md:p-10"
+    >
+      {/* Stop propagation so clicking the photo itself does not close it. */}
+      <figure onClick={(e) => e.stopPropagation()} className="flex max-h-full flex-col items-center">
+        <img
+          src={item.src}
+          alt={item.alt}
+          className="max-h-[82vh] w-auto max-w-full rounded-lg object-contain"
+        />
+        <figcaption className="mt-4 text-center text-sm text-white/70">
+          {item.alt}
+          <span className="ml-3 text-white/40">
+            {index + 1} / {total}
+          </span>
+        </figcaption>
+      </figure>
+
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Închide (Escape)"
+        className="absolute top-4 right-4 flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white transition hover:border-gold hover:text-gold md:top-6 md:right-6"
+      >
+        <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="2" aria-hidden>
+          <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation()
+          onPrev()
+        }}
+        aria-label="Poza anterioară"
+        className="absolute left-2 flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white transition hover:border-gold hover:text-gold md:left-6"
+      >
+        <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="2" aria-hidden>
+          <path strokeLinecap="round" strokeLinejoin="round" d="m15 6-6 6 6 6" />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation()
+          onNext()
+        }}
+        aria-label="Poza următoare"
+        className="absolute right-2 flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white transition hover:border-gold hover:text-gold md:right-6"
+      >
+        <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="2" aria-hidden>
+          <path strokeLinecap="round" strokeLinejoin="round" d="m9 6 6 6-6 6" />
+        </svg>
+      </button>
+    </div>
+  )
+}
+
 function Gallery() {
+  const [openAt, setOpenAt] = useState<number | null>(null)
+
+  // Escape closes, arrows step through — plus the body scroll lock while open.
+  useEffect(() => {
+    if (openAt === null) return
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpenAt(null)
+      if (e.key === 'ArrowRight') setOpenAt((i) => (i === null ? i : (i + 1) % gallery.length))
+      if (e.key === 'ArrowLeft')
+        setOpenAt((i) => (i === null ? i : (i - 1 + gallery.length) % gallery.length))
+    }
+
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [openAt])
+
   return (
     <section id="galerie" className="bg-bg-elevated py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-5">
@@ -898,21 +1008,39 @@ function Gallery() {
         </p>
         <div className="section-line mt-4 h-px w-24" />
         <div className="mt-12 columns-1 gap-4 sm:columns-2 lg:columns-3">
-          {gallery.map((g) => (
+          {gallery.map((g, i) => (
             <figure
               key={g.src}
               className="mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-border"
             >
-              <img
-                src={g.src}
-                alt={g.alt}
-                className="w-full object-cover transition duration-500 hover:scale-[1.03]"
-                loading="lazy"
-              />
+              <button
+                type="button"
+                onClick={() => setOpenAt(i)}
+                className="block w-full cursor-zoom-in"
+                aria-label={`Vezi mărit: ${g.alt}`}
+              >
+                <img
+                  src={g.src}
+                  alt={g.alt}
+                  className="w-full object-cover transition duration-500 hover:scale-[1.03]"
+                  loading="lazy"
+                />
+              </button>
             </figure>
           ))}
         </div>
       </div>
+
+      {openAt !== null && (
+        <Lightbox
+          item={gallery[openAt]}
+          index={openAt}
+          total={gallery.length}
+          onClose={() => setOpenAt(null)}
+          onPrev={() => setOpenAt((openAt - 1 + gallery.length) % gallery.length)}
+          onNext={() => setOpenAt((openAt + 1) % gallery.length)}
+        />
+      )}
     </section>
   )
 }
