@@ -413,7 +413,7 @@ function Hero() {
   return (
     <section
       id="top"
-      className="hero-plate relative flex min-h-svh items-center overflow-hidden pb-16 pt-24 max-lg:min-h-0 max-lg:items-start max-lg:pt-32 max-lg:pb-24 md:pb-20 lg:items-start lg:pt-44"
+      className="hero-plate relative flex min-h-svh items-center overflow-hidden pb-16 pt-24 max-lg:min-h-0 max-lg:items-start max-lg:pt-20 max-lg:pb-24 md:pb-20 lg:items-start lg:pt-44"
     >
       {/* Studio backdrop: grey spotlight behind the figure, vignette edges */}
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
@@ -455,9 +455,11 @@ function Hero() {
                 /* Phone: anchor to the TOP so the head sits in the free
                    top-right corner beside the name; the body runs down
                    behind the copy and dissolves through the masks. */
-                'max-lg:top-44 max-lg:right-[-14%] max-lg:h-[46svh] max-lg:object-top',
+                'max-lg:top-24 max-lg:right-[-14%] max-lg:h-[46svh] max-lg:object-top',
                 /* Desktop: full figure standing on the section bottom */
-                'lg:bottom-0 lg:object-bottom lg:right-0 lg:h-[97svh]',
+                /* min() caps portrait screens (iPad Pro): height would blow
+                   past the container width and show a zoomed sliver */
+                'lg:bottom-0 lg:object-bottom lg:right-0 lg:h-[min(97svh,68vw)]',
               ].join(' ')}
             />
           </picture>
