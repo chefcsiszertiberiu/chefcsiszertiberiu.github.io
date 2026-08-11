@@ -1,33 +1,35 @@
 @import "tailwindcss";
 
+/*
+  Brand palette: graphite + copper — the chef's copper pans, not a gold
+  business-mentor look. The "gold" token names are kept for class stability;
+  their values are copper.
+*/
 @theme {
   --font-display: "Anton", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;
-  --color-bg: #0a0a0a;
-  --color-bg-elevated: #111111;
-  --color-bg-card: #141414;
-  --color-border: #262626;
-  --color-muted: #a3a3a3;
-  --color-fg: #f5f5f5;
-  --color-gold: #e8a317;
-  --color-gold-soft: #f5c15a;
-  --color-gold-dim: #b8780a;
+  --color-bg: #1b1d1e;
+  --color-bg-elevated: #212425;
+  --color-bg-card: #26292b;
+  --color-border: #34383b;
+  --color-muted: #a8a49e;
+  --color-fg: #efeae4;
+  --color-gold: #c97a3d;
+  --color-gold-soft: #dd9560;
+  --color-gold-dim: #a05a24;
 }
 
-/*
-  Light theme — own brand: warm ivory + burnt gold, like a fine-dining menu.
-  Dark stays the default signature look. Toggled via data-theme on <html>.
-*/
+/* Light theme — warm plaster + darkened copper for contrast. */
 :root[data-theme='light'] {
-  --color-bg: #f6f1e7;
-  --color-bg-elevated: #eee7d8;
-  --color-bg-card: #fdfaf3;
-  --color-border: #ddd2bd;
-  --color-muted: #6f6555;
-  --color-fg: #201a12;
-  --color-gold: #a66c05;
-  --color-gold-soft: #8a5a04;
-  --color-gold-dim: #7a5203;
+  --color-bg: #f4efe9;
+  --color-bg-elevated: #ebe4da;
+  --color-bg-card: #fcf9f5;
+  --color-border: #d9cfc2;
+  --color-muted: #6d675e;
+  --color-fg: #211d18;
+  --color-gold: #9c5520;
+  --color-gold-soft: #7e441a;
+  --color-gold-dim: #6b3a16;
 }
 
 html {
@@ -54,20 +56,20 @@ body {
 }
 
 .text-gold-gradient {
-  background: linear-gradient(135deg, #f5c15a 0%, #e8a317 45%, #c4840a 100%);
+  background: linear-gradient(135deg, #e0a06b 0%, #c97a3d 45%, #9c5520 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 :root[data-theme='light'] .text-gold-gradient {
-  background: linear-gradient(135deg, #b8780a 0%, #a66c05 45%, #7a5203 100%);
+  background: linear-gradient(135deg, #b3652a 0%, #9c5520 45%, #6b3a16 100%);
   -webkit-background-clip: text;
   background-clip: text;
 }
 
 .bg-gold-gradient {
-  background: linear-gradient(135deg, #f5c15a 0%, #e8a317 50%, #c4840a 100%);
+  background: linear-gradient(135deg, #e0a06b 0%, #c97a3d 50%, #9c5520 100%);
 }
 
 .card-premium {
@@ -118,24 +120,17 @@ body {
   color: var(--color-fg);
 }
 
-/*
-  Logo artwork is black-on-white JPEG. Blend modes drop the plate:
-  dark surface — invert to white art, screen kills the black plate;
-  light surface — original art, multiply kills the white plate.
-*/
-.logo-on-dark {
-  filter: invert(1);
-  mix-blend-mode: screen;
+/* Transparent-PNG logo pair: show the one that suits the active theme. */
+.logo-for-light {
+  display: none;
 }
 
-.logo-adaptive {
-  filter: invert(1);
-  mix-blend-mode: screen;
+:root[data-theme='light'] .logo-for-dark {
+  display: none;
 }
 
-:root[data-theme='light'] .logo-adaptive {
-  filter: none;
-  mix-blend-mode: multiply;
+:root[data-theme='light'] .logo-for-light {
+  display: block;
 }
 
 .img-cover {
@@ -145,33 +140,102 @@ body {
 }
 
 /*
-  Cutout JPEG sits on a black plate. lighten keeps only pixels brighter than
-  the backdrop, so the plate vanishes on the dark hero and just the figure
-  reads. Side masks soften the hard photo edges so nothing looks pasted.
+  Portrait is a true-alpha PNG/WebP. A long bottom fade dissolves the crop
+  edge — without it the forearm ends in a hard horizontal cut. The fade must
+  start well above the crop so the falloff reads as light, not as a slice.
 */
 .hero-cutout {
-  mix-blend-mode: lighten;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 100%);
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 74%,
+    rgba(0, 0, 0, 0.75) 86%,
+    rgba(0, 0, 0, 0.3) 95%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 74%,
+    rgba(0, 0, 0, 0.75) 86%,
+    rgba(0, 0, 0, 0.3) 95%,
+    transparent 100%
+  );
 }
 
-/* Hero name gold — hero plate is always dark, so never the light-theme gold */
+/*
+  Phone: the image's left crop edge lands mid-screen, so intersect a
+  horizontal fade with the vertical one — the figure dissolves leftward
+  instead of ending in a hard vertical line.
+*/
+@media (max-width: 767px) {
+  .hero-cutout {
+    -webkit-mask-image:
+      linear-gradient(
+        180deg,
+        #000 0%,
+        #000 74%,
+        rgba(0, 0, 0, 0.75) 86%,
+        rgba(0, 0, 0, 0.3) 95%,
+        transparent 100%
+      ),
+      linear-gradient(90deg, transparent 2%, rgba(0, 0, 0, 0.5) 18%, #000 34%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(
+        180deg,
+        #000 0%,
+        #000 74%,
+        rgba(0, 0, 0, 0.75) 86%,
+        rgba(0, 0, 0, 0.3) 95%,
+        transparent 100%
+      ),
+      linear-gradient(90deg, transparent 2%, rgba(0, 0, 0, 0.5) 18%, #000 34%);
+    mask-composite: intersect;
+  }
+}
+
+/*
+  Onetiu-style studio backdrop: the hero keeps a fixed graphite plate in both
+  themes, with a soft grey spotlight behind the figure and a vignette. The
+  transparent portrait sits in the light beam.
+*/
+.hero-plate {
+  background: #141517;
+}
+
+.hero-spot {
+  background: radial-gradient(
+    52% 58% at 71% 40%,
+    rgba(235, 232, 228, 0.34) 0%,
+    rgba(235, 232, 228, 0.14) 42%,
+    transparent 74%
+  );
+}
+
+.hero-vignette {
+  background:
+    linear-gradient(90deg, rgba(10, 11, 12, 0.9) 0%, transparent 34%),
+    linear-gradient(270deg, rgba(10, 11, 12, 0.55) 0%, transparent 30%),
+    linear-gradient(0deg, rgba(10, 11, 12, 0.5) 0%, transparent 26%);
+}
+
+/* Bright copper for the name — the hero plate is always dark */
 .hero-name-gold {
-  background: linear-gradient(135deg, #f5c15a 0%, #e8a317 45%, #c4840a 100%);
+  background: linear-gradient(135deg, #e0a06b 0%, #c97a3d 45%, #9c5520 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* Left veil — text readable, site + portrait still visible */
+/* Mobile: dark left veil keeps the copy readable over the portrait */
 .hero-veil-left {
   background: linear-gradient(
     90deg,
-    #0a0a0a 0%,
-    rgba(10, 10, 10, 0.82) 26%,
-    rgba(10, 10, 10, 0.4) 50%,
-    rgba(10, 10, 10, 0.12) 72%,
-    transparent 100%
+    rgba(20, 21, 23, 0.92) 0%,
+    rgba(20, 21, 23, 0.72) 38%,
+    rgba(20, 21, 23, 0.25) 66%,
+    transparent 88%
   );
 }
 
@@ -179,10 +243,9 @@ body {
   .hero-veil-left {
     background: linear-gradient(
       90deg,
-      #0a0a0a 0%,
-      rgba(10, 10, 10, 0.75) 30%,
-      rgba(10, 10, 10, 0.3) 55%,
-      transparent 80%
+      rgba(20, 21, 23, 0.85) 0%,
+      rgba(20, 21, 23, 0.4) 34%,
+      transparent 62%
     );
   }
 }

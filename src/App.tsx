@@ -23,11 +23,38 @@ const requestTypes = [
 
 const nav = [
   { href: '#despre', label: 'Despre' },
-  { href: '#experienta', label: 'Experiență' },
   { href: '#servicii', label: 'Servicii' },
+  { href: '#proces', label: 'Cum lucrez' },
+  { href: '#experienta', label: 'Experiență' },
   { href: '#galerie', label: 'Galerie' },
-  { href: '#media', label: 'Media' },
   { href: '#contact', label: 'Contact' },
+]
+
+/** Tiberiu's own working method, in his words. */
+const process = [
+  {
+    step: 'Vizită',
+    text: 'Vin în unitate, văd bucătăria la lucru, gust preparatele și urmăresc serviciul într-o zi normală — nu una pregătită.',
+  },
+  {
+    step: 'Evaluare',
+    text: 'Măsor ce se poate măsura: food cost, fișe tehnice, flux de lucru, echipamente, posturi, timpi de ieșire la pas.',
+  },
+  {
+    step: 'Diagnostic',
+    text: 'Spun clar unde pierzi bani și de ce. Fără menajamente, dar cu explicație — patronul trebuie să înțeleagă cauza, nu doar simptomul.',
+  },
+  {
+    step: 'Rezolvare',
+    text: 'Lucrez cot la cot cu echipa: meniu refăcut, standarde scrise, personal instruit. Rămân pe follow-up până se așază.',
+  },
+]
+
+const competitions = [
+  { title: 'Best Chef IPA — locul 2', detail: 'Ediția a II-a, alături de Chef Erni Schmidt' },
+  { title: 'Vándorcsizma — membru în juriu', detail: 'Concurs de gulaș, festival de dansuri populare' },
+  { title: 'UniChef Cup', detail: 'Unilever Food Solutions — jurizare și demonstrații' },
+  { title: 'Taste Forward 2025', detail: 'București — prezență profesională' },
 ]
 
 const stats = [
@@ -127,6 +154,38 @@ const mediaLinks = [
   },
 ]
 
+/**
+ * Two transparent PNGs — white art for dark surfaces, near-black for light.
+ * CSS picks one, so no blend modes and no white plate behind the mark.
+ */
+function Logo({ className = '', onDark = false }: { className?: string; onDark?: boolean }) {
+  // onDark: surface is dark regardless of theme (e.g. nav over the hero plate).
+  if (onDark) {
+    return (
+      <img
+        src={img('brand/logo-light.png')}
+        alt="Chef Tiberiu Csiszer"
+        className={`select-none ${className}`}
+      />
+    )
+  }
+  return (
+    <>
+      <img
+        src={img('brand/logo-light.png')}
+        alt="Chef Tiberiu Csiszer"
+        className={`logo-for-dark select-none ${className}`}
+      />
+      <img
+        src={img('brand/logo-dark.png')}
+        alt=""
+        aria-hidden
+        className={`logo-for-light select-none ${className}`}
+      />
+    </>
+  )
+}
+
 type Theme = 'dark' | 'light'
 
 function ThemeToggle({ onDark }: { onDark: boolean }) {
@@ -184,9 +243,11 @@ function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const linkCls = scrolled
-    ? 'text-muted hover:text-gold'
-    : 'text-white/90 hover:text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]'
+  // Over the fixed-dark hero plate the nav is white; scrolled it follows theme.
+  const onHero = !scrolled && !open
+  const linkCls = onHero
+    ? 'text-white/85 hover:text-white'
+    : 'text-muted hover:text-gold'
 
   return (
     <header
@@ -198,15 +259,7 @@ function Nav() {
     >
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5">
         <a href="#top" className="flex items-center" aria-label="Chef Tiberiu Csiszer — start">
-          {/* Over the dark hero the logo is always inverted; once the nav gets
-              its own background it follows the active theme. */}
-          <img
-            src={img('brand/logo-mark.jpg')}
-            alt="Chef Tiberiu Csiszer"
-            className={`h-14 w-auto select-none md:h-16 ${
-              scrolled ? 'logo-adaptive' : 'logo-on-dark'
-            }`}
-          />
+          <Logo className="h-12 w-auto md:h-14" onDark={onHero} />
         </a>
 
         <nav className="hidden items-center gap-6 md:flex">
@@ -227,14 +280,14 @@ function Nav() {
           >
             WhatsApp
           </a>
-          <ThemeToggle onDark={!scrolled} />
+          <ThemeToggle onDark={onHero} />
         </nav>
 
         <div className="flex items-center gap-3 md:hidden">
-          <ThemeToggle onDark={!scrolled && !open} />
+          <ThemeToggle onDark={onHero} />
         <button
           type="button"
-          className={scrolled || open ? 'text-fg' : 'text-white'}
+          className={onHero ? 'text-white' : 'text-fg'}
           aria-label="Meniu"
           onClick={() => setOpen((v) => !v)}
         >
@@ -304,17 +357,12 @@ function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-svh items-center overflow-hidden bg-[#0a0a0a] pb-16 pt-24 md:pb-20"
+      className="hero-plate relative flex min-h-svh items-center overflow-hidden pb-16 pt-24 md:pb-20"
     >
-      {/*
-        Hero keeps its dark cinematic plate in both themes — the cutout JPEG
-        sits on black. The bottom fade below uses the theme bg var, so the
-        section melts into whichever palette is active.
-      */}
+      {/* Studio backdrop: grey spotlight behind the figure, vignette edges */}
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_78%_50%,rgba(232,163,23,0.18),transparent_55%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_12%_28%,rgba(232,163,23,0.09),transparent_42%)]" />
-        <div className="hero-veil-left absolute inset-0" />
+        <div className="hero-spot absolute inset-0" />
+        <div className="hero-vignette absolute inset-0" />
       </div>
 
       {/*
@@ -323,43 +371,44 @@ function Hero() {
         Scroll: clear scale-up.
       */}
       <div
-        className="pointer-events-none absolute inset-y-0 right-0 z-[3] w-[64%] overflow-hidden max-md:w-[58%] md:w-[56%] lg:w-[54%]"
+        className="pointer-events-none absolute inset-y-0 right-0 z-[1] w-[46%] overflow-hidden max-md:w-[62%] md:w-[46%] lg:w-[44%]"
         aria-hidden
       >
         <div
           className="absolute inset-0 will-change-transform"
           style={{
             transform: `translate3d(0, ${imgY}px, 0) scale(${imgScale})`,
-            transformOrigin: '75% 85%',
+            transformOrigin: '70% 95%',
           }}
         >
-          <img
-            src={img('tibi-cutout.jpg')}
-            alt="Chef Tiberiu Csiszer"
-            width={900}
-            height={1200}
-            fetchPriority="high"
-            decoding="async"
-            className={[
-              /* hero-cutout: lighten blend melts the black plate into the bg */
-              'hero-cutout absolute bottom-0 h-[min(102svh,1040px)] w-auto max-w-none select-none object-contain object-bottom',
-              /* phone: only ~half of figure in the right zone */
-              'right-0 max-md:right-[-38%] max-md:h-[88svh]',
-              'md:right-0 md:h-[min(100svh,1020px)]',
-              'lg:right-0',
-            ].join(' ')}
-          />
+          <picture>
+            <source srcSet={img('tibi-hero.webp')} type="image/webp" />
+            <img
+              src={img('tibi-hero.png')}
+              alt="Chef Tiberiu Csiszer"
+              width={880}
+              height={999}
+              fetchPriority="high"
+              decoding="async"
+              className={[
+                'hero-cutout absolute bottom-0 w-auto max-w-none select-none object-contain object-bottom',
+                /* Onetiu framing: head near the top, body runs off the bottom */
+                'right-0 h-[88svh]',
+                'max-md:right-[-24%] max-md:h-[72svh]',
+                'md:right-[-2%] md:h-[88svh]',
+                'lg:right-2 lg:h-[92svh]',
+              ].join(' ')}
+            />
+          </picture>
         </div>
       </div>
 
-      {/* Fades over the cutout: figure melts into the page bottom (theme bg) */}
-      <div className="pointer-events-none absolute inset-0 z-[4]" aria-hidden>
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg via-bg/55 to-transparent md:h-52" />
-        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/60 to-transparent" />
-      </div>
+      {/* Mobile-first left veil for copy legibility, then fade into theme bg */}
+      <div className="hero-veil-left pointer-events-none absolute inset-0 z-[2]" aria-hidden />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[4] h-28 bg-gradient-to-t from-bg to-transparent md:h-40" aria-hidden />
 
       <div
-        className="relative z-[2] mx-auto w-full max-w-6xl px-5 will-change-transform"
+        className="relative z-[3] mx-auto w-full max-w-6xl px-5 will-change-transform"
         style={{
           opacity: contentOpacity,
           transform: `translate3d(0, ${contentY}px, 0)`,
@@ -370,17 +419,16 @@ function Hero() {
           Executive Chef · Consultant Culinar
         </p>
 
-        {/* Full-width name — the tail slides behind the portrait (onetiu-style) */}
-        <h1 className="font-display text-[clamp(3rem,10.5vw,8rem)] leading-[0.92] tracking-wide whitespace-nowrap text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.55)]">
+        <h1 className="font-display text-[clamp(2.75rem,7.5vw,6rem)] leading-[0.92] tracking-wide text-white">
           TIBERIU
           <br />
           <span className="hero-name-gold">CSISZER</span>
         </h1>
 
-        <div className="max-w-[min(100%,20rem)] sm:max-w-md md:max-w-xl lg:max-w-2xl">
+        <div className="max-w-md md:max-w-lg">
           <p className="mt-6 max-w-lg text-base leading-relaxed text-white/80 md:text-lg">
-            Experiență internațională. Openings de bucătărie, meniuri cu amprentă, training de
-            brigadă și show cooking — Mediaș · Germania · Belgia.
+            Restaurantul tău pierde bani pe meniu? 25 de ani de bucătărie internațională — Mediaș,
+            Germania, Belgia — puși în serviciul afacerii tale.
           </p>
 
           <div className="mt-9 flex flex-wrap gap-3">
@@ -388,19 +436,19 @@ function Hero() {
               href="https://wa.me/40741591252"
               target="_blank"
               rel="noreferrer"
-              className="bg-gold-gradient rounded-full px-7 py-3.5 text-sm font-semibold tracking-wide text-black shadow-[0_8px_30px_rgba(232,163,23,0.35)] transition hover:brightness-110"
+              className="bg-gold-gradient rounded-full px-7 py-3.5 text-sm font-semibold tracking-wide text-[#1b1d1e] shadow-[0_8px_30px_rgba(201,122,61,0.3)] transition hover:brightness-110"
             >
               Rezervă o discuție
             </a>
             <a
-              href="#galerie"
+              href="#servicii"
               className="rounded-full border border-white/25 bg-white/5 px-7 py-3.5 text-sm text-white backdrop-blur-sm transition hover:border-gold hover:text-gold"
             >
-              Vezi portofoliu
+              Vezi serviciile
             </a>
           </div>
 
-          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/55">
+          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/60">
             <a href="tel:+40741591252" className="transition hover:text-gold">
               0741 591 252
             </a>
@@ -532,6 +580,12 @@ function About() {
               „Pentru mine, bucătăria e o provocare. Ideea mea e să simplific meniurile. Bucătăria e
               un tărâm cu reguli fixe, dar și cu posibilitatea de a crea.”
             </p>
+            <p className="text-fg/90">
+              <span className="font-medium text-gold">Ce înseamnă asta pentru restaurantul tău:</span>{' '}
+              douăzeci și cinci de ani de greșeli făcute și reparate în bucătării adevărate — de la
+              hotel de patru stele la evenimente de 5.000 de persoane. Nu vin cu teorie de curs, vin
+              cu ce am văzut că ține la pas, în serviciu real, cu personalul pe care îl ai.
+            </p>
           </div>
         </div>
       </div>
@@ -617,12 +671,77 @@ function Services() {
         <div className="section-line mt-4 h-px w-24" />
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
-            <article key={s.title} className="card-premium rounded-2xl p-6 md:p-8">
+            <article key={s.title} className="card-premium flex flex-col rounded-2xl p-6 md:p-8">
               <span className="font-display text-3xl text-gold/40">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <h3 className="mt-3 font-display text-xl tracking-wide md:text-2xl">{s.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-muted">{s.text}</p>
+              {/* Preselects this service in the contact form. */}
+              <a
+                href={`#contact?serviciu=${encodeURIComponent(requestTypes[i] ?? '')}`}
+                onClick={(e) => {
+                  e.preventDefault()
+                  window.dispatchEvent(
+                    new CustomEvent('preselect-service', { detail: requestTypes[i] }),
+                  )
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                }}
+                className="mt-5 inline-flex items-center gap-1.5 self-start text-sm text-gold transition hover:gap-2.5"
+              >
+                Cere ofertă
+                <span aria-hidden>→</span>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Process() {
+  return (
+    <section id="proces" className="bg-bg-elevated py-16 md:py-24">
+      <div className="mx-auto max-w-6xl px-5">
+        <p className="text-xs tracking-[0.25em] text-gold uppercase">Metoda</p>
+        <h2 className="font-display mt-3 text-4xl tracking-wide md:text-5xl">CUM LUCREZ</h2>
+        <p className="mt-4 max-w-2xl text-muted leading-relaxed">
+          Patru pași, în ordinea asta. Fără sărituri — diagnosticul fără vizită e ghicit, iar
+          rezolvarea fără diagnostic e cheltuială.
+        </p>
+        <div className="section-line mt-4 h-px w-24" />
+
+        <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {process.map((p, i) => (
+            <li key={p.step} className="card-premium relative rounded-2xl p-6">
+              <span className="font-display text-4xl text-gold/30">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 className="mt-2 font-display text-2xl tracking-wide text-gold">{p.step}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{p.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )
+}
+
+function Competitions() {
+  return (
+    <section className="py-16 md:py-20">
+      <div className="mx-auto max-w-6xl px-5">
+        <p className="text-xs tracking-[0.25em] text-gold uppercase">Recunoaștere</p>
+        <h2 className="font-display mt-3 text-4xl tracking-wide md:text-5xl">
+          CONCURSURI & JURIZĂRI
+        </h2>
+        <div className="section-line mt-4 h-px w-24" />
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {competitions.map((c) => (
+            <article key={c.title} className="card-premium rounded-2xl p-5">
+              <h3 className="font-medium text-fg">{c.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{c.detail}</p>
             </article>
           ))}
         </div>
@@ -820,6 +939,17 @@ type FormState = 'idle' | 'sending' | 'sent' | 'error'
 function ContactForm() {
   const [state, setState] = useState<FormState>('idle')
   const [error, setError] = useState('')
+  const [service, setService] = useState('')
+
+  // "Cere ofertă" on a service card fills the dropdown before the scroll lands.
+  useEffect(() => {
+    const onPreselect = (e: Event) => {
+      setService((e as CustomEvent<string>).detail ?? '')
+      setState('idle')
+    }
+    window.addEventListener('preselect-service', onPreselect)
+    return () => window.removeEventListener('preselect-service', onPreselect)
+  }, [])
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -933,7 +1063,14 @@ function ContactForm() {
           <label htmlFor="subject" className="mb-1.5 block text-xs text-muted">
             Tip solicitare <span className="text-gold">*</span>
           </label>
-          <select id="subject" name="subject" required defaultValue="" className="field">
+          <select
+            id="subject"
+            name="subject"
+            required
+            value={service}
+            onChange={(e) => setService(e.target.value)}
+            className="field"
+          >
             <option value="" disabled>
               Alege…
             </option>
@@ -985,11 +1122,7 @@ function Footer() {
     <footer className="border-t border-border py-10">
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-5 md:flex-row md:items-center">
         <div>
-          <img
-            src={img('brand/logo-mark.jpg')}
-            alt="Chef Tiberiu Csiszer"
-            className="logo-adaptive h-16 w-auto select-none"
-          />
+          <Logo className="h-14 w-auto" />
           <p className="mt-2 max-w-md text-sm text-muted">
             Executive Chef · consultant openings & kitchen development · Food & Beverage · team
             leadership.
@@ -1031,8 +1164,10 @@ export default function App() {
         <Proof />
         <Stats />
         <About />
-        <Experience />
         <Services />
+        <Process />
+        <Experience />
+        <Competitions />
         <Gallery />
         <Media />
         <Contact />
