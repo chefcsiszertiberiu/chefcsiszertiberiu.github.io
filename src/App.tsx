@@ -671,7 +671,7 @@ function About() {
                 <p>
                   Am făcut salturi la Bazna și la Binder-Bubi (4★ Mediaș), apoi am plecat la
                   Düsseldorf, la restaurantul Gourmet: nunți de 400 de persoane, somon norvegian,
-                  vită din Argentina, sezonalitate reală, sub un șef cu stea Michelin.
+                  vită din Argentina, sezonalitate reală, sub un chef cu stea Michelin.
                 </p>
                 <p>
                   Am gătit live pe croazieră, pe Dunăre. Am făcut curs și am lucrat în Belgia —
@@ -732,7 +732,7 @@ function Experience() {
       place: 'Düsseldorf',
       country: 'Germania',
       role: 'Restaurant Gourmet',
-      text: 'Am gătit nunți de 400 de persoane, cu piață zilnică și sezonalitate reală, sub un șef cu stea Michelin.',
+      text: 'Am gătit nunți de 400 de persoane, cu piață zilnică și sezonalitate reală, sub un chef cu stea Michelin.',
     },
     {
       place: 'Belgia',
