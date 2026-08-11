@@ -51,7 +51,7 @@ const process = [
 ]
 
 const competitions = [
-  { title: 'Best Chef IPA — locul 2', detail: 'Am concurat în ediția a II-a, alături de Chef Erni Schmidt' },
+  { title: 'Best Chef IPA — locul 1', detail: 'Am câștigat ediția a II-a, făcând echipă cu Erni Schmidt' },
   { title: 'Vándorcsizma — juriu', detail: 'Am jurizat concursul de gulaș de la festivalul de dansuri populare' },
   { title: 'UniChef Cup', detail: 'Am jurizat și am ținut demonstrații pentru Unilever Food Solutions' },
   { title: 'Taste Forward 2025', detail: 'Am fost prezent la ediția din București' },
@@ -62,7 +62,7 @@ const stats = [
   { value: '26', label: 'Ani în bucătărie' },
   { value: '25', label: 'Restaurante consiliate' },
   { value: '100+', label: 'Bucătari instruiți' },
-  { value: '#2', label: 'Best Chef IPA' },
+  { value: '#1', label: 'Best Chef IPA' },
 ]
 
 /**
@@ -124,7 +124,7 @@ const gallery = [
   { src: img('roast-slice.jpg'), alt: 'Tranșare preparat premium' },
   { src: img('spit-roast.jpg'), alt: 'Miel la proțap' },
   { src: img('platters.jpg'), alt: 'Platouri pentru eveniment' },
-  { src: img('duo-fire.jpg'), alt: 'Alături de Chef Erni Schmidt' },
+  { src: img('duo-fire.jpg'), alt: 'Alături de Erni Schmidt' },
   { src: img('kitchen-team.jpg'), alt: 'Training în bucătărie profesională' },
   { src: img('medals.jpg'), alt: 'Echipă cu medalii la concurs' },
   { src: img('jury-mussels.jpg'), alt: 'Jurizare Best Chef IPA' },
@@ -495,8 +495,8 @@ function Hero() {
 
         <div className="max-w-md md:max-w-lg">
           <p className="mt-6 max-w-lg text-base leading-relaxed text-white/80 md:text-lg">
-            Restaurantul tău pierde bani pe meniu? 26 de ani de bucătărie internațională — Mediaș,
-            Germania, Belgia — puși în serviciul afacerii tale.
+            Restaurantul tău pierde bani pe meniu? Pun în serviciul afacerii tale 26 de ani de
+            bucătărie: Mediaș, Germania, Belgia, vase de croazieră, Franța și România.
           </p>
 
           <div className="mt-9 flex flex-wrap gap-3">
@@ -648,8 +648,10 @@ function About() {
           <div className="mt-6 space-y-4 text-muted leading-relaxed">
             <p>
               Am pornit aproape de sonde: am terminat instalator-sudor, eram gata de Romgaz — și am
-              schimbat salopeta pe șorț. În 2000 am învățat meseria la Sibiu, de la maestrul „nea
-              Liviu”, apoi am preluat bucătăria unui restaurant din centru.
+              schimbat salopeta pe șorț. Primii pași în bucătăria adevărată i-am făcut lângă
+              maestrul bucătar Nicu Catană; nu mai e printre noi, dar de la el am înțeles ce
+              înseamnă meseria asta. În 2000 am mers la Sibiu, la nea Liviu, iar de acolo am
+              preluat bucătăria unui restaurant din centru.
             </p>
             <p>
               Am făcut salturi la Bazna și la Binderbubi (4★ Mediaș), apoi am plecat la Düsseldorf,
@@ -659,7 +661,7 @@ function About() {
             <p>
               Am gătit live pe croazieră, pe Dunăre. Am făcut curs și am lucrat în Belgia — alături
               de 50 de bucătari, pentru 5.000 de invitați. Întors acasă, fac consultanță, training
-              și evenimente; am lucrat cu Chef Erni Schmidt și am luat locul 2 la Best Chef IPA.
+              și evenimente; am făcut echipă cu Erni Schmidt și am luat locul 1 la Best Chef IPA.
             </p>
             <p className="border-l-2 border-gold pl-4 text-fg/90 italic">
               „Pentru mine, bucătăria e o provocare. Ideea mea e să simplific meniurile. Bucătăria e
