@@ -717,10 +717,16 @@ function About() {
 function Experience() {
   const items = [
     {
+      place: 'Mediaș',
+      country: 'România',
+      role: 'Primii pași în bucătărie',
+      text: 'Primii pași în bucătăria adevărată i-am făcut lângă maestrul bucătar Nicu Catană.',
+    },
+    {
       place: 'Sibiu',
       country: 'România',
-      role: 'Ucenicie & prima bucătărie',
-      text: 'Am învățat meseria de la maestrul „nea Liviu", apoi am preluat bucătăria unui restaurant din centru.',
+      role: 'Curs & prima bucătărie',
+      text: 'În 2000 am făcut cursul de bucătar la nea Liviu, apoi am preluat bucătăria unui restaurant din centru.',
     },
     {
       place: 'Düsseldorf',
