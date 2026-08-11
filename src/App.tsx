@@ -451,7 +451,7 @@ function Hero() {
                 /* Phone: anchor to the TOP so the head sits in the free
                    top-right corner beside the name; the body runs down
                    behind the copy and dissolves through the masks. */
-                'max-lg:top-14 max-lg:right-1 max-lg:h-[50svh] max-lg:object-top',
+                'max-lg:top-44 max-lg:right-[-14%] max-lg:h-[46svh] max-lg:object-top',
                 /* Desktop: full figure standing on the section bottom */
                 'lg:bottom-0 lg:object-bottom lg:right-0 lg:h-[97svh]',
               ].join(' ')}
