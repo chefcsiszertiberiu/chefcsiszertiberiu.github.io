@@ -4,7 +4,10 @@ Site portofoliu: Executive Chef · Consultant culinar.
 
 ## Live (GitHub Pages)
 
-**https://georgelush.github.io/cheftiberiucsiszer/**
+**https://chefcsiszertiberiu.github.io/**
+
+Deploy is automatic: every push to `main` runs `.github/workflows/deploy.yml`,
+which builds with Vite and publishes `dist/` to Pages.
 
 ## Dev
 
