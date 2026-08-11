@@ -419,10 +419,6 @@ function Hero() {
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
         <div className="hero-spot absolute inset-0" />
         <div className="hero-vignette absolute inset-0" />
-        {/* Decorative hairline frames — fill the dead zones on wide screens */}
-        <div className="absolute top-[16svh] bottom-[10svh] left-[3vw] hidden w-[19vw] border border-white/10 lg:block" />
-        <div className="absolute top-[10svh] bottom-[6svh] right-[2vw] hidden w-[26vw] border border-white/15 lg:block" />
-        <div className="absolute top-[16svh] left-[3vw] hidden h-10 w-10 border-t-2 border-l-2 border-gold/50 lg:block" />
       </div>
 
       {/*
@@ -431,7 +427,7 @@ function Hero() {
         Scroll: clear scale-up.
       */}
       <div
-        className="hero-frame pointer-events-none absolute inset-y-0 right-0 z-[1] overflow-hidden max-lg:w-full lg:w-[50%]"
+        className="hero-frame pointer-events-none absolute inset-y-0 right-0 z-[1] overflow-hidden max-lg:w-full lg:w-[58%]"
         aria-hidden
       >
         <div
@@ -459,7 +455,7 @@ function Hero() {
                 /* Desktop: full figure standing on the section bottom */
                 /* min() caps portrait screens (iPad Pro): height would blow
                    past the container width and show a zoomed sliver */
-                'lg:bottom-0 lg:object-bottom lg:right-0 lg:h-[min(97svh,68vw)]',
+                'lg:bottom-0 lg:object-bottom lg:right-[14%] lg:h-[min(97svh,68vw)]',
               ].join(' ')}
             />
           </picture>
@@ -527,6 +523,13 @@ function Hero() {
             <span className="hidden text-white/25 sm:inline">|</span>
             <span>Mediaș, România</span>
           </div>
+
+          {/* Motto-ul lui Tibi */}
+          <figure className="mt-10 max-w-md border-l-2 border-gold/60 pl-4">
+            <blockquote className="text-base leading-relaxed text-white/85 italic md:text-lg">
+              "When you pray for rain, you gotta deal with the mud too."
+            </blockquote>
+          </figure>
         </div>
       </div>
 
@@ -1190,6 +1193,7 @@ function Footer() {
             Executive Chef · consultant openings & kitchen development · Food & Beverage · team
             leadership.
           </p>
+          <p className="mt-3 text-sm text-gold/80 italic">„You reap what you sow."</p>
         </div>
         <div className="text-sm text-muted md:text-right">
           <p>© {new Date().getFullYear()} Tiberiu Csiszer</p>
