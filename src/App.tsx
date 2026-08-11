@@ -689,7 +689,7 @@ function About() {
                   Mediaș — acolo am pus în meniu gastronomia celor trei etnii care trăiesc
                   împreună în oraș: română, germană și maghiară. Printre altele, am semnat
                   bucătăria și la Hotel Binder-Bubi Mediaș, la Complexul Vața Băi, la Hanul
-                  Moara cu Noroc din Ineu și la sala de evenimente Mirage din Sebeș.
+                  Moara cu Noroc din Ineu și la Mirage Events Sebeș.
                 </p>
                 <p className="border-l-2 border-gold pl-4 text-white/90 italic">
                   „Pentru mine, bucătăria e o provocare. Ideea mea e să simplific meniurile.
