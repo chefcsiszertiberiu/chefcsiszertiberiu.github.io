@@ -413,12 +413,16 @@ function Hero() {
   return (
     <section
       id="top"
-      className="hero-plate relative flex min-h-svh items-center overflow-hidden pb-16 pt-24 max-lg:min-h-0 max-lg:items-start max-lg:pt-32 max-lg:pb-24 md:pb-20"
+      className="hero-plate relative flex min-h-svh items-center overflow-hidden pb-16 pt-24 max-lg:min-h-0 max-lg:items-start max-lg:pt-32 max-lg:pb-24 md:pb-20 lg:items-start lg:pt-44"
     >
       {/* Studio backdrop: grey spotlight behind the figure, vignette edges */}
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
         <div className="hero-spot absolute inset-0" />
         <div className="hero-vignette absolute inset-0" />
+        {/* Decorative hairline frames — fill the dead zones on wide screens */}
+        <div className="absolute top-[16svh] bottom-[10svh] left-[3vw] hidden w-[19vw] border border-white/10 lg:block" />
+        <div className="absolute top-[10svh] bottom-[6svh] right-[2vw] hidden w-[26vw] border border-white/15 lg:block" />
+        <div className="absolute top-[16svh] left-[3vw] hidden h-10 w-10 border-t-2 border-l-2 border-gold/50 lg:block" />
       </div>
 
       {/*
