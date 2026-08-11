@@ -1,15 +1,27 @@
-# Chef Tiberiu Csiszer — Portfolio
+# Site portofoliu — Chef Tiberiu Csiszer
 
-Site portofoliu: Executive Chef · Consultant culinar.
+**Live:** https://chefcsiszertiberiu.github.io/
 
-## Live (GitHub Pages)
+---
 
-**https://chefcsiszertiberiu.github.io/**
+## Ghid rapid: unde modifici
 
-Deploy is automatic: every push to `main` runs `.github/workflows/deploy.yml`,
-which builds with Vite and publishes `dist/` to Pages.
+| Ce schimbi | Fișier |
+|------------|--------|
+| **Texte, meniu, galerie, contact, WhatsApp** | `src/App.tsx` |
+| **Culori (aur, fundal, text)** | `src/index.css` → blocul `@theme` |
+| **Poze afișate pe site** | `public/images/` (+ legături în `App.tsx`) |
+| **Logo / portret pregătite** | `public/images/brand/` |
 
-## Dev
+### Detalii complete (tree, mutări, checklist)
+
+→ vezi **`../README.md`** (rădăcina proiectului `D:\tibi`)
+
+→ catalog foto: **`../INDEX-MEDIA.md`**
+
+---
+
+## Pornire local
 
 ```bash
 npm install

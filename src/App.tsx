@@ -4,6 +4,23 @@ import { useEffect, useState } from 'react'
 const img = (file: string) =>
   `${import.meta.env.BASE_URL}images/${file.replace(/^\/?images\//, '')}`
 
+/**
+ * Formspree endpoint. The form id is public by design — it ships inside the
+ * page HTML — so it lives here rather than in an env var.
+ */
+const FORMSPREE_ID = 'mnpadgpo'
+const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_ID}`
+
+const requestTypes = [
+  'Deschidere restaurant nou',
+  'Optimizare restaurant existent',
+  'Food cost management & control',
+  'Tehnici de lucru / training personal',
+  'Food design & plating',
+  'Igienă & siguranța alimentației',
+  'Altceva',
+]
+
 const nav = [
   { href: '#despre', label: 'Despre' },
   { href: '#experienta', label: 'Experiență' },
@@ -20,22 +37,35 @@ const stats = [
   { value: '5000', label: 'Persoane · eveniment BE' },
 ]
 
+/** Ofertă din materialul oficial (consultanță gastronomică completă) */
 const services = [
   {
-    title: 'Openings & Kitchen Development',
-    text: 'Deschideri de restaurant, flux bucătărie, echipamente, standarde de producție.',
+    title: 'Deschiderea unui restaurant nou',
+    text: 'Concept, flux de bucătărie, echipamente, standarde de producție și deschidere gata de serviciu.',
   },
   {
-    title: 'Consultanță F&B',
-    text: 'Refresh concept, meniu sezonier scurt și de top, cost food, amprenta bucătarului.',
+    title: 'Îmbunătățirea și optimizarea unui restaurant existent',
+    text: 'Refresh de meniu, organizare brigadă, ritm de serviciu și eficiență pe fluxul de lucru.',
   },
   {
-    title: 'Training & Leadership',
-    text: 'Formare echipe, ierarhie de brigadă, ritm de serviciu, transfer de meserie.',
+    title: 'Food cost management & control',
+    text: 'Control costuri, rețete standardizate, inventar și profitabilitate pe farfurie.',
   },
   {
-    title: 'Evenimente & Show Cooking',
-    text: 'Catering select, show culinar, jurizare, prezentări de produs și media.',
+    title: 'Tehnici corecte de lucru în bucătărie',
+    text: 'Metode profesionale, standarde de producție și transfer de meserie pe posturi.',
+  },
+  {
+    title: 'Instruirea și motivarea personalului',
+    text: 'Training de echipă, leadership de brigadă și cultură de bucătărie care ține.',
+  },
+  {
+    title: 'Food design & plating de nivel înalt',
+    text: 'Prezentare pe farfurie, amprentă de chef și design culinar pentru meniu de top.',
+  },
+  {
+    title: 'Consultanță igienă & siguranța alimentației publice',
+    text: 'Practici corecte de igienă, siguranță alimentară și conformitate în unitatea de alimentație publică.',
   },
 ]
 
@@ -440,13 +470,21 @@ function Services() {
     <section id="servicii" className="py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-5">
         <p className="text-xs tracking-[0.25em] text-gold uppercase">Ce ofer</p>
-        <h2 className="font-display mt-3 text-4xl tracking-wide md:text-5xl">SERVICII</h2>
+        <h2 className="font-display mt-3 text-4xl tracking-wide md:text-5xl">
+          CONSULTANȚĂ GASTRONOMICĂ
+        </h2>
+        <p className="mt-4 max-w-2xl text-muted leading-relaxed">
+          Ofer consultanță gastronomică completă — de la deschiderea unui restaurant nou până la
+          plating de nivel înalt, food cost și siguranța alimentației publice.
+        </p>
         <div className="section-line mt-4 h-px w-24" />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
             <article key={s.title} className="card-premium rounded-2xl p-6 md:p-8">
-              <span className="font-display text-3xl text-gold/40">0{i + 1}</span>
-              <h3 className="mt-3 font-display text-2xl tracking-wide">{s.title}</h3>
+              <span className="font-display text-3xl text-gold/40">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 className="mt-3 font-display text-xl tracking-wide md:text-2xl">{s.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-muted">{s.text}</p>
             </article>
           ))}
@@ -625,14 +663,182 @@ function Contact() {
               </a>
             </div>
           </div>
-          <img
-            src={img('spit-roast.jpg')}
-            alt="Chef Tiberiu la eveniment outdoor"
-            className="min-h-[280px] w-full object-cover"
-          />
+          <ContactForm />
         </div>
       </div>
     </section>
+  )
+}
+
+type FormState = 'idle' | 'sending' | 'sent' | 'error'
+
+function ContactForm() {
+  const [state, setState] = useState<FormState>('idle')
+  const [error, setError] = useState('')
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const form = event.currentTarget
+    setState('sending')
+    setError('')
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      })
+
+      if (response.ok) {
+        form.reset()
+        setState('sent')
+        return
+      }
+
+      // Formspree returns field-level errors in a JSON body on 4xx.
+      const body = await response.json().catch(() => null)
+      setError(body?.errors?.[0]?.message ?? 'Trimiterea a eșuat. Încearcă din nou.')
+      setState('error')
+    } catch {
+      setError('Conexiune întreruptă. Verifică internetul și încearcă din nou.')
+      setState('error')
+    }
+  }
+
+  if (state === 'sent') {
+    return (
+      <div className="flex min-h-[280px] flex-col justify-center border-t border-border p-8 md:p-12 lg:border-t-0 lg:border-l">
+        <p className="font-display text-3xl tracking-wide text-gold">MULȚUMESC!</p>
+        <p className="mt-4 text-muted leading-relaxed">
+          Mesajul a ajuns. Revin cu un răspuns în cel mult 24 de ore. Dacă e urgent, sună direct
+          la{' '}
+          <a href="tel:+40741591252" className="text-gold hover:underline">
+            0741 591 252
+          </a>
+          .
+        </p>
+        <button
+          type="button"
+          onClick={() => setState('idle')}
+          className="mt-8 self-start rounded-full border border-border px-6 py-3 text-sm text-fg transition hover:border-gold hover:text-gold"
+        >
+          Trimite alt mesaj
+        </button>
+      </div>
+    )
+  }
+
+  const sending = state === 'sending'
+
+  return (
+    <div className="border-t border-border p-8 md:p-12 lg:border-t-0 lg:border-l">
+      <p className="text-xs tracking-[0.25em] text-gold uppercase">Scrie-mi</p>
+      <p className="mt-3 text-sm text-muted">
+        Completează în 30 de secunde. Răspund în maxim 24 de ore.
+      </p>
+
+      <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+        {/* Honeypot: bots fill hidden fields, humans never see this one. */}
+        <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" />
+        <input
+          type="hidden"
+          name="_subject"
+          value="Solicitare nouă de pe cheftiberiucsiszer.github.io"
+        />
+
+        <div>
+          <label htmlFor="name" className="mb-1.5 block text-xs text-muted">
+            Nume <span className="text-gold">*</span>
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            autoComplete="name"
+            placeholder="Numele tău"
+            className="field"
+          />
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor="email" className="mb-1.5 block text-xs text-muted">
+              Email <span className="text-gold">*</span>
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              autoComplete="email"
+              placeholder="nume@exemplu.ro"
+              className="field"
+            />
+          </div>
+          <div>
+            <label htmlFor="phone" className="mb-1.5 block text-xs text-muted">
+              Telefon <span className="text-[#6b6b6b]">(opțional)</span>
+            </label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              autoComplete="tel"
+              placeholder="07xx xxx xxx"
+              className="field"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="subject" className="mb-1.5 block text-xs text-muted">
+            Tip solicitare <span className="text-gold">*</span>
+          </label>
+          <select id="subject" name="subject" required defaultValue="" className="field">
+            <option value="" disabled>
+              Alege…
+            </option>
+            {requestTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="message" className="mb-1.5 block text-xs text-muted">
+            Detalii <span className="text-[#6b6b6b]">(opțional)</span>
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows={4}
+            placeholder="Dată, locație, număr de persoane, buget orientativ — orice ajută."
+            className="field resize-y"
+          />
+        </div>
+
+        {state === 'error' && (
+          <p role="alert" className="text-sm text-[#ff6b6b]">
+            {error}
+          </p>
+        )}
+
+        <button
+          type="submit"
+          disabled={sending}
+          className="bg-gold-gradient inline-flex w-full justify-center rounded-full px-6 py-3 text-sm font-semibold text-black transition disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        >
+          {sending ? 'Se trimite…' : 'Trimite mesajul'}
+        </button>
+
+        <p className="text-xs text-muted">
+          Datele ajung direct pe emailul lui Chef Tiberiu. Fără liste de marketing.
+        </p>
+      </form>
+    </div>
   )
 }
 
