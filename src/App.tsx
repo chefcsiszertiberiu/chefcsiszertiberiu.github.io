@@ -688,8 +688,8 @@ function About() {
                   Proiectul meu de suflet e <span className="text-white">Hanul Greweln</span> din
                   Mediaș — acolo am pus în meniu gastronomia celor trei etnii care trăiesc
                   împreună în oraș: română, germană și maghiară. Printre altele, am semnat
-                  bucătăria și la Hotel Binder-Bubi Mediaș, la Complexul Vața Băi și la Hanul
-                  Moara cu Noroc din Ineu.
+                  bucătăria și la Hotel Binder-Bubi Mediaș, la Complexul Vața Băi, la Hanul
+                  Moara cu Noroc din Ineu și la sala de evenimente Mirage din Sebeș.
                 </p>
                 <p className="border-l-2 border-gold pl-4 text-white/90 italic">
                   „Pentru mine, bucătăria e o provocare. Ideea mea e să simplific meniurile.
