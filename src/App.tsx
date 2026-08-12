@@ -662,16 +662,16 @@ function About() {
               <div className="section-line mt-4 h-px w-24" />
               <div className="mt-6 space-y-4 leading-relaxed text-white/75">
                 <p>
-                  Am pornit aproape de sonde: am terminat instalator-sudor, eram gata de Romgaz —
-                  și am schimbat salopeta pe șorț. Primii pași în bucătăria adevărată i-am făcut
-                  lângă maestrul bucătar Nicu Catană; nu mai e printre noi, dar de la el am înțeles
-                  ce înseamnă meseria asta. În 2000 am mers la Sibiu, la nea Liviu, iar de acolo am
-                  preluat bucătăria unui restaurant din centru.
+                  Primii pași în bucătăria adevărată i-am făcut lângă maestrul bucătar Nicu
+                  Catană; nu mai e printre noi, dar de la el am înțeles ce înseamnă meseria asta.
+                  În 2000 am mers la Sibiu, la Liviu Nemeth, chef bucătar la restaurantul Sub
+                  Cetate, iar de acolo am preluat bucătăria unui restaurant din centru.
                 </p>
                 <p>
                   Am făcut salturi la Bazna și la Binder-Bubi (4★ Mediaș), apoi am plecat la
-                  Düsseldorf, la restaurantul Gourmet: nunți de 400 de persoane, somon norvegian,
-                  vită din Argentina, sezonalitate reală, sub un chef cu stea Michelin.
+                  Düsseldorf, la restaurantul Le Cheval Blanc: nunți de 400 de persoane, somon
+                  norvegian, vită din Argentina, sezonalitate reală, sub chef Ron M., cu stea
+                  Michelin.
                 </p>
                 <p>
                   Am gătit live pe croazieră, pe Dunăre. Am făcut curs și am lucrat în Belgia —
@@ -725,14 +725,14 @@ function Experience() {
     {
       place: 'Sibiu',
       country: 'România',
-      role: 'A doua bucătărie',
-      text: 'În 2000 am mers la nea Liviu, apoi am preluat bucătăria unui restaurant din centru.',
+      role: 'Prima bucătărie pe mâna mea',
+      text: 'În 2000 am mers la Liviu Nemeth, chef bucătar la restaurantul Sub Cetate, apoi am preluat bucătăria unui restaurant din centru.',
     },
     {
       place: 'Düsseldorf',
       country: 'Germania',
-      role: 'Restaurant Gourmet',
-      text: 'Am gătit nunți de 400 de persoane, cu piață zilnică și sezonalitate reală, sub un chef cu stea Michelin.',
+      role: 'Restaurant Le Cheval Blanc',
+      text: 'Am gătit nunți de 400 de persoane, cu piață zilnică și sezonalitate reală, sub chef Ron M., cu stea Michelin.',
     },
     {
       place: 'Belgia',
@@ -1170,7 +1170,7 @@ function Contact() {
             <div className="section-line mt-4 h-px w-24" />
             <p className="mt-6 text-muted leading-relaxed">
               Deschideri, refresh de restaurant, training, evenimente sau doar un sfat de meniu —
-              scrie-mi. Răspund oricui vine cu o cerere serioasă.
+              scrie-mi. Citesc personal fiecare mesaj și răspund în cel mult 24 de ore.
             </p>
             <div className="mt-8 space-y-3 text-sm">
               <p className="flex items-center gap-3">
