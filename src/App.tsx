@@ -732,6 +732,12 @@ function Experience() {
       text: 'În 2000 am mers la Liviu Nemeth, chef bucătar la restaurantul Sub Cetate, apoi am preluat bucătăria unui restaurant din centru.',
     },
     {
+      place: 'Brie-Comte-Robert',
+      country: 'Franța',
+      role: 'Curs de perfecționare',
+      text: 'Am făcut cursul de perfecționare la Brie-Comte-Robert, lângă Paris — în Seine-et-Marne, ținutul care a dat lumii brânza Brie. Acolo am prins disciplina bucătăriei franceze, temelia oricărei bucătării serioase.',
+    },
+    {
       place: 'Düsseldorf',
       country: 'Germania',
       role: 'Restaurant Le Cheval Blanc',
