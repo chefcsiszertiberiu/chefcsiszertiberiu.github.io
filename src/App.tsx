@@ -21,6 +21,9 @@ const requestTypes = [
   'Altceva',
 ]
 
+/** 2000 = cursul de la Sibiu. Recalculat la fiecare încărcare — nu îmbătrânește. */
+const YEARS = new Date().getFullYear() - 2000
+
 const nav = [
   { href: '#despre', label: 'Despre' },
   { href: '#servicii', label: 'Servicii' },
@@ -63,7 +66,7 @@ const competitions = [
 
 const stats = [
   // 2000 (primul curs, Sibiu) → anul curent. Restaurante și bucătari: cifrele lui Tibi.
-  { value: '26', label: 'Ani în bucătărie' },
+  { value: `${YEARS}`, label: 'Ani în bucătărie' },
   { value: '25', label: 'Restaurante consiliate' },
   { value: '100+', label: 'Bucătari instruiți' },
   { value: '#1', label: 'Best Chef IPA' },
@@ -510,8 +513,8 @@ function Hero() {
 
         <div className="max-w-md md:max-w-lg">
           <p className="mt-6 max-w-lg text-base leading-relaxed text-white/80 md:text-lg">
-            Restaurantul tău pierde bani pe meniu? Pun în serviciul afacerii tale 26 de ani de
-            bucătărie: Mediaș, Germania, Belgia, vase de croazieră, Franța și România.
+            Restaurantul tău pierde bani pe meniu? Pun în serviciul afacerii tale {YEARS} de ani
+            de bucătărie: Mediaș, Germania, Belgia, vase de croazieră, Franța și România.
           </p>
 
           <div className="mt-9 flex flex-wrap gap-3">
@@ -699,7 +702,7 @@ function About() {
                   <span className="font-medium text-gold">
                     Ce înseamnă asta pentru restaurantul tău:
                   </span>{' '}
-                  douăzeci și șase de ani de greșeli făcute și reparate în bucătării adevărate,
+                  {YEARS} de ani de greșeli făcute și reparate în bucătării adevărate,
                   vreo 25 de restaurante puse pe picioare și peste 100 de bucătari instruiți —
                   oameni care azi gătesc pe vase de croazieră, în Germania, în Franța și cei mai
                   mulți aici, în România. Nu vin cu teorie de curs, vin cu ce am văzut că ține la
