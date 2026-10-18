@@ -53,6 +53,14 @@ const process = [
   },
 ]
 
+/** Nominalizare, nu premiu câștigat. Textul e cel dat de Tibi, 18.10.2026. */
+const nomination = {
+  status: 'Nominalizat',
+  award: 'HoReCa Awards',
+  year: '2026',
+  section: 'Cel mai bun Chef',
+}
+
 const competitions = [
   { title: 'Best Chef IPA — locul 1', detail: 'Am câștigat ediția a II-a, făcând echipă cu Erni Schmidt' },
   { title: 'Vándorcsizma — juriu', detail: 'Am jurizat concursul de gulaș de la festivalul de dansuri populare' },
@@ -890,14 +898,39 @@ function Process() {
 
 function Competitions() {
   return (
-    <section className="py-16 md:py-20">
+    <section id="concursuri" className="scroll-mt-24 py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-5">
         <p className="text-xs tracking-[0.25em] text-gold uppercase">Recunoaștere</p>
         <h2 className="font-display mt-3 text-4xl tracking-wide md:text-5xl">
           CONCURSURI & JURIZĂRI
         </h2>
         <div className="section-line mt-4 h-px w-24" />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+        <article className="card-premium relative mt-10 overflow-hidden rounded-2xl p-6 md:p-8">
+          <div
+            className="pointer-events-none absolute -top-20 right-0 h-56 w-56 rounded-full bg-gold/10 blur-3xl"
+            aria-hidden
+          />
+          <div className="relative flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-xs font-medium tracking-[0.25em] text-gold uppercase">
+                {nomination.status} · {nomination.year}
+              </p>
+              <h3 className="font-display mt-2 text-3xl tracking-wide md:text-4xl">
+                {nomination.award.toUpperCase()}
+              </h3>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted md:text-base">
+                Nominalizat la secțiunea{' '}
+                <span className="font-medium text-fg">{nomination.section}</span>.
+              </p>
+            </div>
+            <p className="font-display text-6xl leading-none text-gold-gradient md:text-7xl">
+              {nomination.year}
+            </p>
+          </div>
+        </article>
+
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {competitions.map((c) => (
             <article key={c.title} className="card-premium rounded-2xl p-5">
               <h3 className="font-medium text-fg">{c.title}</h3>
